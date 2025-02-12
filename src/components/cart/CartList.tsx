@@ -1,9 +1,10 @@
+
 import React from "react";
 import { CartItem } from "./CartItem";
 
 export const CartList: React.FC = () => {
   return (
-    <div className="justify-center items-stretch shadow-[0px_2px_12px_0px_rgba(183,189,196,0.50)] bg-white flex min-w-60 flex-col flex-1 shrink basis-[23px] pl-[29px] pr-7 py-10 rounded-[18px] max-md:max-w-full max-md:px-5">
+    <div className="justify-center items-stretch shadow-[0px_2px_12px_0px_rgba(183,189,196,0.50)] bg-white flex min-w-[300px] flex-col flex-1 pl-4 pr-4 py-6 rounded-[18px] max-md:max-w-full">
       <div className="flex w-full flex-col text-2xl text-[#05172C] font-semibold text-right leading-none max-md:max-w-full">
         <div className="flex w-[105px] max-w-full flex-col items-stretch">
           <div>עגלת קניות</div>
