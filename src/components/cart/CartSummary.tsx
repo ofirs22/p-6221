@@ -1,9 +1,10 @@
+
 import React from "react";
 
 export const CartSummary: React.FC = () => {
   return (
     <div className="items-center shadow-[0px_2px_12px_0px_rgba(183,189,196,0.50)] bg-white flex min-w-60 gap-2.5 text-2xl font-semibold leading-none w-[365px] p-10 rounded-[18px] max-md:px-5">
-      <div className="self-stretch flex min-w-60 h-[377px] w-[285px] flex-col items-stretch my-auto">
+      <div className="self-stretch flex min-w-60 w-[285px] flex-col items-stretch my-auto h-full">
         <div className="flex w-[227px] max-w-full flex-col items-stretch text-[#05172C] text-right">
           <div>יש 2 מוצרים בעגלה שלך</div>
           <div className="bg-[rgba(0,186,255,1)] flex min-h-[3px] w-full mt-[11px]" />
@@ -33,11 +34,11 @@ export const CartSummary: React.FC = () => {
           />
         </form>
 
-        <div className="w-full text-sm font-normal leading-loose flex-1 mt-4">
+        <div className="w-full text-sm font-normal leading-loose mt-4 flex flex-col flex-grow">
           <div className="text-[#05172C] text-right">הערה להזמנה:</div>
           <textarea
             placeholder="הוסיפו כאן הערות"
-            className="border border-[color:var(--Shade-1---Gray,#D2D2D2)] w-full gap-5 text-[#264653] flex-1 h-full mt-2.5 p-5 rounded-xl border-solid"
+            className="border border-[color:var(--Shade-1---Gray,#D2D2D2)] w-full gap-5 text-[#264653] mt-2.5 p-5 rounded-xl border-solid flex-grow min-h-[100px]"
           />
         </div>
       </div>
