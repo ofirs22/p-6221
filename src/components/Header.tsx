@@ -68,7 +68,7 @@ const Header: React.FC = () => {
         <Link to="/about" className="text-[#05172C] hover:text-[#00BAFF] text-xl">
           אודות
         </Link>
-        <Link to="/products" className="text-[#05172C] hover:text-[#00BAFF] text-xl">
+        <Link to="/shop" className="text-[#05172C] hover:text-[#00BAFF] text-xl">
           מוצרים
         </Link>
         <Link to="/packages" className="text-[#05172C] hover:text-[#00BAFF] text-xl">
@@ -113,7 +113,7 @@ const Header: React.FC = () => {
               אודות
               <div className="absolute left-0 right-0 bottom-[-8px] h-[5px] bg-sky-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
             </Link>
-            <Link to="/products" className="text-[#05172C] hover:text-[#00BAFF] text-base lg:text-[24px] relative group whitespace-nowrap">
+            <Link to="/shop" className="text-[#05172C] hover:text-[#00BAFF] text-base lg:text-[24px] relative group whitespace-nowrap">
               מוצרים
               <div className="absolute left-0 right-0 bottom-[-8px] h-[5px] bg-sky-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
             </Link>
