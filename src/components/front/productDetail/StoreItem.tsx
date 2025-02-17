@@ -1,12 +1,12 @@
 
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addItem } from '../../../store/cartSlice';
 import ProductBottomDetails from './productBottomDetails';
 import { CartItemProps } from '@/types/cartTypes';
 import { toast } from 'sonner';
-import { Button } from '../../../components/ui/button';
-import { Plus, Minus } from 'lucide-react';
+import { QtyControls } from '../QtyControls';
+import  Heart from '../../Heart';
 
 type StoreItemProps = {
   id: string;
@@ -66,57 +66,38 @@ const StoreItem: React.FC<StoreItemProps> = ({
             </div>
           </div>
           <div className="flex gap-10 pl-6 mt-11 text-lg font-bold whitespace-nowrap rounded-3xl bg-blend-normal text-slate-700 max-md:pl-5 max-md:mt-10">
-            {/* <button
-              className="my-auto"
-              onClick={() => setProductQty(prev => {
-                if (prev === 1) return 1;
-                return prev - 1;
-              })}
-            >-</button>
-            <div className="flex gap-5">
-              <div className="my-auto">{productQty}</div>
-              <button
-                className="flex items-center justify-center bg-white rounded-full h-[52px] shadow-[0px_2px_15px_rgba(183,189,196,0.571)] w-[52px]"
-                onClick={() => setProductQty(prev => prev + 1)}
-              >+</button> */}
                   <div className="flex items-center gap-6 bg-[#F4F5F5] px-4 py-3 rounded-lg">
-                    <Button 
-                        className="my-auto"
-                        onClick={() => setProductQty(prev => {
-                          if (prev === 1) return 1;
-                          return prev - 1;
-                        })}
-                    >
-                      <Minus className="h-3 w-3 text-[#05172C]" />
-                    </Button>
-                    <span className="text-[#05172C] min-w-[20px] text-center">{productQty}</span>
-                    <Button 
-                      className="flex items-center justify-center bg-white rounded-full h-[52px] shadow-[0px_2px_15px_rgba(183,189,196,0.571)] w-[52px]"
-                      onClick={() => setProductQty(prev => prev + 1)}
-                    >
-                      <Plus className="h-3 w-3 text-[#05172C]" />
-                    </Button>
+                    <QtyControls id={id} quantity={productQty} />
                   </div>
             </div>
           </div>
-          <div className="flex gap-6 items-center self-stretch mt-12 max-md:mt-10">
-            {socialIcons.map((icon, index) => (
+          <div className="flex gap-6 items-center self-stretch mt-12 max-md:mt-10 justify-between">
+            {/* {socialIcons.map((icon, index) => (
               <div key={index} className="flex gap-2.5 justify-center items-center self-stretch px-2.5 my-auto bg-white shadow-sm h-[52px] min-h-[52px] rounded-[103px] w-[52px]">
                 <img loading="lazy" src={icon.iconSrc} alt={icon.iconAlt} className="object-contain self-stretch my-auto aspect-square w-[13px]" />
               </div>
-            ))}
-            <div className="flex flex-col self-stretch my-auto text-lg text-white min-w-[240px] w-[250px]">
-              <div
-                className="flex gap-5 justify-between px-5 pt-3 pb-5 bg-sky-500 rounded-3xl max-md:px-5 cursor-pointer"
-                onClick={handleAddToCart}
-              >
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/3bd4fc55ef394bd184dc9786c01c1445/b9e1181743ba6b72e1a9d2667f2722ce297ec4875756b815209a672cd7c954e7?apiKey=3bd4fc55ef394bd184dc9786c01c1445&"
-                  alt="Cart icon"
-                  className="object-contain shrink-0 self-start aspect-[1.17] w-[21px]"
-                />
-                <div>הוספה לעגלה</div>
+            ))} */}
+            <div className="flex gap-2.5 justify-center items-center self-stretch px-2.5 my-auto bg-white shadow-sm h-[52px] min-h-[52px] rounded-[103px] w-[52px]">
+              <img loading="lazy" src={socialIcons[0].iconSrc} alt={socialIcons[0].iconAlt} className="object-contain self-stretch my-auto aspect-square w-[13px]" />
+            </div>
+            <div className="flex gap-2.5 justify-center items-center self-stretch px-2.5 my-auto bg-white shadow-sm h-[52px] min-h-[52px] rounded-[103px] w-[52px]">
+              <Heart id={id} entity='product' size='small' />
+            </div>
+            <div className="flex items-center self-stretch my-auto">
+              <div className="flex flex-col self-stretch my-auto text-lg text-white min-w-[240px] w-[250px]">
+                <div
+                  className="flex items-center justify-center gap-2 px-5 py-3 bg-sky-500 rounded-3xl max-md:px-5 cursor-pointer"
+                  onClick={handleAddToCart}
+                >
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/3bd4fc55ef394bd184dc9786c01c1445/b9e1181743ba6b72e1a9d2667f2722ce297ec4875756b815209a672cd7c954e7?apiKey=3bd4fc55ef394bd184dc9786c01c1445&"
+                    alt="Cart icon"
+                    className="object-contain w-5 h-5"
+                  />
+                
+                  <div className="text-white text-lg font-bold">הוספה לעגלה</div>
+                </div>
               </div>
             </div>
           </div>
