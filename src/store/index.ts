@@ -1,3 +1,4 @@
+
 import { configureStore } from '@reduxjs/toolkit';
 import productReducer from './productSlice';
 import categoryReducer from './categorySlice';
@@ -24,7 +25,7 @@ const store = configureStore({
     order: orderReducer, 
     courier: courierReducer,
     payment: paymentReducer, 
-    lists: listsReducer, 
+    lists: listReducer, 
     list: listReducer, 
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
