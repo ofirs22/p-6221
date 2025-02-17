@@ -1,55 +1,99 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { toggleList, deleteList } from '../../../store/listSlice';
+
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { List } from '../../../types/listsType';
+import { removeProductFromList } from '../../../store/listSlice';
+import { RootState } from '../../../store';
+import { Product } from '../../../types/productTypes';
 
 interface ListItemProps {
-  id: string;
-  title: string;
-  notes: string;
-  isActive: boolean;
+  list: List;
+  onDelete: (id: string) => void;
 }
 
-export const ListItem: React.FC<ListItemProps> = ({ id, title, notes, isActive }) => {
+export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const products = useSelector((state: RootState) => state.products.products);
+
+  const listProducts = products.filter(product => list.products.includes(product.id));
+
+  const handleRemoveProduct = (productId: string) => {
+    dispatch(removeProductFromList({ listId: list.id, productId }));
+  };
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <div className="flex flex-col justify-center px-5 py-6 mt-8 w-full bg-white rounded-xl shadow-[0px_2px_12px_rgba(183,189,196,0.504)] max-md:max-w-full">
-      <div className="flex flex-wrap gap-10 justify-between items-center w-full max-w-[984px] max-md:max-w-full">
+    <div className="flex flex-col w-full bg-white rounded-xl shadow-sm p-4 mb-4">
+      <div className="flex justify-between items-center">
         <button
-          onClick={() => dispatch(toggleList(id))}
-          className="flex flex-col self-stretch my-auto text-xl font-semibold text-center text-black w-[168px]"
+          onClick={handleToggle}
+          className="w-[46px] h-[46px] flex items-center justify-center bg-sky-500 rounded-full"
         >
-          <div className="px-4 py-3 bg-sky-500 rounded-3xl max-md:px-5">
-            שלח לעגלה
-          </div>
+          <img
+            src="https://cdn.builder.io/api/v1/image/assets/3bd4fc55ef394bd184dc9786c01c1445/2277651fbb37846363b9b2544db190230f4a4032aa581ad2f5d1cffe4dab8ee2?apiKey=3bd4fc55ef394bd184dc9786c01c1445&"
+            alt={isOpen ? "Close list" : "Open list"}
+            className={`w-6 h-6 transition-transform ${isOpen ? 'rotate-45' : ''}`}
+          />
         </button>
-        <div className="flex gap-5 items-center self-stretch my-auto min-w-[240px]">
-          <div className="flex gap-5 items-center self-stretch my-auto min-w-[240px]">
-            <div className="flex overflow-hidden flex-col items-end self-stretch my-auto text-black">
-              <div className="text-2xl font-semibold leading-none">{title}</div>
-              <div className="mt-2.5 text-sm leading-loose">{notes}</div>
-            </div>
-            <div className="flex shrink-0 self-stretch my-auto w-px h-10 bg-neutral-300" />
-            <div className="flex flex-col justify-center self-stretch p-1 my-auto w-[46px]">
-              <div className="flex shrink-0 bg-black h-[39px] w-[39px]" />
-            </div>
-          </div>
-          <button
-            onClick={() => dispatch(deleteList(id))}
-            className={`flex gap-2.5 justify-center items-center self-stretch px-2.5 my-auto ${
-              isActive ? 'bg-sky-500' : 'bg-white'
-            } shadow-sm h-[52px] min-h-[52px] rounded-[103px] w-[52px]`}
-          >
-            <img
-              loading="lazy"
-              src={isActive ? "https://cdn.builder.io/api/v1/image/assets/3bd4fc55ef394bd184dc9786c01c1445/cad1d0370bd947dce0857432bed77afd176c417a35a881176bab3e1111f4ab1a?apiKey=3bd4fc55ef394bd184dc9786c01c1445&" : "https://cdn.builder.io/api/v1/image/assets/3bd4fc55ef394bd184dc9786c01c1445/434dfc7e1301af3ef8a4a7280d089250763e6f3cfac87c94ded3cfb91278869f?apiKey=3bd4fc55ef394bd184dc9786c01c1445&"}
-              className="object-contain self-stretch my-auto aspect-square w-[13px]"
-              alt={isActive ? "Deactivate list" : "Activate list"}
-            />
-          </button>
+        <div className="flex flex-col items-end">
+          <h3 className="text-xl font-semibold text-[#05172C]">{list.title}</h3>
+          <p className="text-sm text-gray-600">{list.description}</p>
         </div>
       </div>
+
+      {isOpen && (
+        <div className="mt-4 space-y-3">
+          {listProducts.map((product: Product) => (
+            <div key={product.id} className="flex justify-between items-center p-3 border rounded-lg">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleRemoveProduct(product.id)}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  הסר
+                </button>
+                <div className="flex items-center">
+                  <span className="text-[#f00] font-semibold ml-2">
+                    ₪{product.price.toFixed(2)}
+                  </span>
+                  {product.originalPrice && (
+                    <span className="text-gray-500 line-through text-sm ml-2">
+                      ₪{product.originalPrice.toFixed(2)}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="font-medium">{product.name}</span>
+                <img 
+                  src={product.image} 
+                  alt={product.name} 
+                  className="w-12 h-12 object-contain"
+                />
+              </div>
+            </div>
+          ))}
+          
+          <div className="flex justify-between mt-4">
+            <button
+              onClick={() => onDelete(list.id)}
+              className="text-red-500 hover:text-red-700"
+            >
+              מחק רשימה
+            </button>
+            <button 
+              className="bg-[#00BAFF] text-white px-6 py-2 rounded-full hover:bg-[#0096CC]"
+              onClick={() => {/* TODO: Implement send to cart */}}
+            >
+              שלח לעגלה
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
-

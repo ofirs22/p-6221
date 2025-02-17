@@ -1,23 +1,18 @@
-import React, { useState } from 'react';
+
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store';
-import { addList, updateList, deleteList } from '../../../store/listsSlice';
-import { ListCard } from './ListsCard';
+import { addList, updateList, deleteList } from '../../../store/listSlice';
+import { ListItem } from './ListItem';
 import { AddListForm } from './AddListForm';
 import { List } from '../../../types/listsType';
-import { useSelector as useProductSelector } from 'react-redux';
-import { RootState as ProductRootState } from '../../../store';
-import { Product } from '../../../types/productTypes';
 
 export const UserLists: React.FC = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state: RootState) => state.lists);
-  const products = useProductSelector((state: ProductRootState) => state.products.products);
-  const [selectedProduct, setSelectedProduct] = useState('');
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
 
-  const handleAddList = (newList: Omit<List, 'id'>) => {
-    dispatch(addList({ ...newList, id: Date.now().toString() }));
+  const handleAddList = (newList: List) => {
+    dispatch(addList(newList));
   };
 
   const handleUpdateList = (updatedList: List) => {
@@ -26,19 +21,6 @@ export const UserLists: React.FC = () => {
 
   const handleDeleteList = (listId: string) => {
     dispatch(deleteList(listId));
-  };
-
-  const handleProductSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedProductId = event.target.value;
-    const selectedProduct = products.find((product) => product.id === selectedProductId);
-    if (selectedProduct) {
-      setSelectedProducts([...selectedProducts, selectedProduct]);
-      setSelectedProduct(selectedProductId);
-    }
-  };
-
-  const handleRemoveProduct = (productId: string) => {
-    setSelectedProducts(selectedProducts.filter((product) => product.id !== productId));
   };
 
   return (
@@ -59,30 +41,11 @@ export const UserLists: React.FC = () => {
         <div className="flex flex-col justify-center mt-4 w-full max-md:max-w-full">
           <div className="flex w-full bg-neutral-300 min-h-[1px] max-md:max-w-full" />
           <AddListForm onAddList={handleAddList} />
-          <select value={selectedProduct} onChange={handleProductSelect}>
-            <option value="" disabled>Select a product</option>
-            {products.map((product) => (
-              <option key={product.id} value={product.id}>
-                <img src={product.image} alt={product.name} style={{ width: '20px', marginRight: '5px' }} />
-                {product.name}
-              </option>
-            ))}
-          </select>
-          <div>
-            {selectedProducts.map((product) => (
-              <div key={product.id}>
-                <img src={product.image} alt={product.name} style={{ width: '20px', marginRight: '5px' }} />
-                {product.name}
-                <button onClick={() => handleRemoveProduct(product.id)}>Remove</button>
-              </div>
-            ))}
-          </div>
           {lists.map((list) => (
-            <ListCard
+            <ListItem
               key={list.id}
               list={list}
-              onUpdateList={handleUpdateList}
-              onDeleteList={handleDeleteList}
+              onDelete={handleDeleteList}
             />
           ))}
         </div>
