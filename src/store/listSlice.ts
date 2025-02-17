@@ -44,6 +44,7 @@ export const listSlice = createSlice({
 
 export const { addList, toggleList, deleteList } = listSlice.actions;
 
-export const selectLists = (state: RootState) => state.lists.lists;
+// Fix: Update the selector to correctly access the lists array from the state
+export const selectLists = (state: RootState) => state.list.lists;
 
 export default listSlice.reducer;
