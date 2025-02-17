@@ -1,50 +1,51 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { RootState } from '../app/store';
+import { List } from '../types/listsType';
 
-interface ListItem {
-  id: string;
-  title: string;
-  notes: string;
-  isActive: boolean;
-}
+const initialState: List[] = [];
 
-interface ListState {
-  lists: ListItem[];
-}
-
-const initialState: ListState = {
-  lists: [],
-};
-
-export const listSlice = createSlice({
+const listsSlice = createSlice({
   name: 'lists',
   initialState,
   reducers: {
-    addList: (state, action: PayloadAction<{ title: string; notes: string }>) => {
-      const newList: ListItem = {
-        id: Date.now().toString(),
-        title: action.payload.title,
-        notes: action.payload.notes,
-        isActive: false,
-      };
-      state.lists.push(newList);
+    addList: (state, action: PayloadAction<List>) => {
+      state.push(action.payload);
     },
-    toggleList: (state, action: PayloadAction<string>) => {
-      const list = state.lists.find(list => list.id === action.payload);
-      if (list) {
-        list.isActive = !list.isActive;
+    updateList: (state, action: PayloadAction<List>) => {
+      const index = state.findIndex(list => list.id === action.payload.id);
+      if (index !== -1) {
+        state[index] = action.payload;
       }
     },
     deleteList: (state, action: PayloadAction<string>) => {
-      state.lists = state.lists.filter(list => list.id !== action.payload);
+      return state.filter(list => list.id !== action.payload);
+    },
+    addProductToList: (state, action: PayloadAction<{ listId: string; productId: string }>) => {
+      const list = state.find(list => list.id === action.payload.listId);
+      if (list && !list.products.includes(action.payload.productId)) {
+        list.products.push(action.payload.productId);
+      }
+    },
+    removeProductFromList: (state, action: PayloadAction<{ listId: string; productId: string }>) => {
+      const list = state.find(list => list.id === action.payload.listId);
+      if (list) {
+        list.products = list.products.filter(id => id !== action.payload.productId);
+      }
     },
   },
 });
 
-export const { addList, toggleList, deleteList } = listSlice.actions;
+export const { 
+  addList, 
+  updateList, 
+  deleteList, 
+  addProductToList, 
+  removeProductFromList 
+} = listsSlice.actions;
 
-// Fix: Update the selector to correctly access the lists array from the state
-export const selectLists = (state: RootState) => state.list.lists;
+export const selectLists = (state: RootState) => state.lists;
+export const selectListById = (state: RootState, listId: string) => 
+  state.lists.find(list => list.id === listId);
 
-export default listSlice.reducer;
+export default listsSlice.reducer;
