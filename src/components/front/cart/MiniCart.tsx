@@ -19,7 +19,7 @@ const MiniCart: React.FC<MiniCartProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-y-0 right-0 w-[450px] bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-50">
+    <div className="fixed inset-y-0 right-0 w-full sm:w-[380px] md:w-[450px] bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 max-h-screen overflow-hidden">
       <div className="h-full flex flex-col">
         {/* Header */}
         <div className="p-4 border-b flex justify-between items-center">
@@ -38,7 +38,7 @@ const MiniCart: React.FC<MiniCartProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Cart Items */}
-        <div className="flex-1 overflow-y-auto p-4">
+        <div className="flex-1 overflow-y-auto p-2 sm:p-4">
           {cartItems.length === 0 ? (
             <div className="text-center py-8">
               <p>העגלה שלך ריקה</p>
@@ -46,7 +46,7 @@ const MiniCart: React.FC<MiniCartProps> = ({ isOpen, onClose }) => {
           ) : (
             <div className="space-y-4">
               {cartItems.map((item) => (
-                <div key={item.id} className="flex items-start gap-3 pb-4 border-b">
+                <div key={item.id} className="flex items-start gap-2 sm:gap-3 pb-4 border-b">
                   {/* Controls */}
                   <div className="flex  items-center gap-2">
                   <button 
@@ -73,7 +73,7 @@ const MiniCart: React.FC<MiniCartProps> = ({ isOpen, onClose }) => {
                     <img 
                       src={item.image} 
                       alt={item.name} 
-                      className="w-16 h-16 object-cover rounded"
+                      className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded"
                     />
                   </div>
                 </div>

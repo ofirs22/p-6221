@@ -39,7 +39,7 @@ const Header: React.FC = () => {
   };
 
   const MenuContent = () => (
-    <div className="flex flex-col h-full pt-12">
+    <div className="flex flex-col h-full pt-12 bg-white">
       <div className="flex flex-col gap-6 px-4">
         {isAuthenticated ? (
           <div className="flex items-center gap-3 pb-6 border-b border-gray-200">

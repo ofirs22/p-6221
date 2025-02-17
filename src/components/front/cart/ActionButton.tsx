@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 
+
 const ActionButton: React.FC = () => {
   const navigate = useNavigate();
 
@@ -30,9 +31,9 @@ const ActionButton: React.FC = () => {
       </button>
 
       {/* Info and Back Button Section */}
-      <div className="flex items-center justify-between w-[709px] h-[40px]">
+      <div className="flex items-center justify-around w-[709px] h-[40px]">
         {/* Info Message */}
-        <div className="flex flex-col">
+        <div className="hidden md:flex flex-col ">
           <span
             className="text-[14px] font-semibold leading-[20.57px] text-[#264653]"
             style={{ fontFamily: 'Ploni ML v2 AAA' }}
