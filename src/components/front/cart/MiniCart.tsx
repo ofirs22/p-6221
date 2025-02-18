@@ -55,7 +55,7 @@ const MiniCart: React.FC<MiniCartProps> = ({ isOpen, onClose }) => {
                     >
                       <Trash2 size={16} color='red'/>
                     </button>
-                    <QtyControls id={item.id} quantity={item.quantity} variant="mini" />
+                    <QtyControls id={item.id} quantity={item.quantity} size="small" />
 
                   </div>
                   <div className="flex flex-1 items-start gap-3">
