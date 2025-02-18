@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectProducts } from '../../../store/productSlice';
@@ -10,7 +9,7 @@ import { Product } from '../../../types/productTypes';
 interface ProductSelectionDialogProps {
   open: boolean;
   onClose: () => void;
-  onProductsSelected: (products: string[]) => void;
+  onProductsSelected: (products: { productId: string; quantity: number }[]) => void;
 }
 
 export const ProductSelectionDialog: React.FC<ProductSelectionDialogProps> = ({
@@ -20,22 +19,28 @@ export const ProductSelectionDialog: React.FC<ProductSelectionDialogProps> = ({
 }) => {
   const products = useSelector(selectProducts);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+  const [selectedProducts, setSelectedProducts] = useState<{ productId: string; quantity: number }[]>([]);
 
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleProductToggle = (productId: string) => {
-    setSelectedProducts(prev =>
-      prev.includes(productId)
-        ? prev.filter(id => id !== productId)
-        : [...prev, productId]
-    );
+    setSelectedProducts(prev => {
+      const isProductSelected = prev.some(item => item.productId === productId);
+      
+      if (isProductSelected) {
+        return prev.filter(item => item.productId !== productId);
+      } else {
+        return [...prev, { productId, quantity: 1 }];
+      }
+    });
   };
 
   const handleSubmit = () => {
-    onProductsSelected(selectedProducts);
+    const products = selectedProducts.map(item => ({ productId: item.productId, quantity: item.quantity }));
+    console.log(products)
+    onProductsSelected(products);
     setSelectedProducts([]);
     onClose();
   };
@@ -62,7 +67,7 @@ export const ProductSelectionDialog: React.FC<ProductSelectionDialogProps> = ({
             <div
               key={product.id}
               className={`p-4 border rounded-lg cursor-pointer ${
-                selectedProducts.includes(product.id)
+                selectedProducts.some(item => item.productId === product.id)
                   ? 'border-[#00BAFF] bg-blue-50'
                   : 'border-gray-200'
               }`}

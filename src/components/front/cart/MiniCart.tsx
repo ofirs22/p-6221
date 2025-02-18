@@ -2,7 +2,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { X, Trash2 } from 'lucide-react';
-import { selectCartItems, selectCart, removeItem } from '../../../store/cartSlice';
+import { selectCartItems, selectCart, removeItem, incrementQuantity, decrementQuantity } from '../../../store/cartSlice';
 import { Link } from 'react-router-dom';
 import { QtyControls } from '../QtyControls';
 
@@ -55,7 +55,13 @@ const MiniCart: React.FC<MiniCartProps> = ({ isOpen, onClose }) => {
                     >
                       <Trash2 size={16} color='red'/>
                     </button>
-                    <QtyControls id={item.id} quantity={item.quantity} size="small" />
+                    <QtyControls 
+                      id={item.id} 
+                      quantity={item.quantity} 
+                      size="small"
+                      onIncrement={(id) => dispatch(incrementQuantity(id))}
+                      onDecrement={(id) => dispatch(decrementQuantity(id))}
+                    />
 
                   </div>
                   <div className="flex flex-1 items-start gap-3">

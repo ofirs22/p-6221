@@ -33,6 +33,15 @@ const listsSlice = createSlice({
         list.products = list.products.filter(p => p.productId !== action.payload.products.productId);
       }
     },
+    updateProductQuantity: (state, action: PayloadAction<{ listId: string; products: { productId: string; quantity: number; }; }>) => {
+      const list = state.find(list => list.id === action.payload.listId);
+      if (list) {
+        const productIndex = list.products.findIndex(p => p.productId === action.payload.products.productId);
+        if (productIndex !== -1) {
+          list.products[productIndex].quantity = action.payload.products.quantity;
+        }
+      }
+    },
   },
 });
 
@@ -41,7 +50,8 @@ export const {
   updateList, 
   deleteList, 
   addProductToList, 
-  removeProductFromList 
+  removeProductFromList,
+  updateProductQuantity 
 } = listsSlice.actions;
 
 export const selectLists = (state: RootState) => state.lists;

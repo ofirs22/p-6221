@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { List } from '../../../types/listsType';
-import { removeProductFromList } from '../../../store/listSlice';
+import { removeProductFromList, updateProductQuantity } from '../../../store/listSlice';
 import { RootState } from '../../../store';
 import { Product } from '../../../types/productTypes';
 import { QtyControls } from '../QtyControls';
@@ -30,6 +30,28 @@ export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
       listId: list.id, 
       products: { productId, quantity: 1 } 
     }));
+  };
+
+  const handleIncrement = (productId: string) => {
+    const listProduct = list.products.find(p => p.productId === productId);
+    const currentQuantity = listProduct ? listProduct.quantity : 1;
+    dispatch(updateProductQuantity({ 
+      listId: list.id, 
+      products: { productId, quantity: currentQuantity + 1 }
+    }));
+  };
+
+  const handleDecrement = (productId: string) => {
+    const listProduct = list.products.find(p => p.productId === productId);
+    const currentQuantity = listProduct ? listProduct.quantity : 1;
+    if (currentQuantity > 1) {
+      dispatch(updateProductQuantity({ 
+        listId: list.id, 
+        products: { productId, quantity: currentQuantity - 1 }
+      }));
+    } else {
+      handleRemoveProduct(productId);
+    }
   };
 
   const handleToggle = () => {
@@ -96,7 +118,13 @@ export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
           >
             <Trash2 className="w-5 h-5 max-sm:w-4 max-sm:h-4" />
           </button>
-          <QtyControls id={product.id} quantity={quantity} size={'small'} />
+          <QtyControls 
+            id={product.id} 
+            quantity={quantity} 
+            size="small"
+            onIncrement={handleIncrement}
+            onDecrement={handleDecrement}
+          />
         </div>
       </div>
     </div>

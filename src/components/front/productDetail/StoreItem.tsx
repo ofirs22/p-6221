@@ -67,7 +67,13 @@ const StoreItem: React.FC<StoreItemProps> = ({
           </div>
           <div className="flex gap-10 pl-6 mt-11 text-lg font-bold whitespace-nowrap rounded-3xl bg-blend-normal text-slate-700 max-md:pl-5 max-md:mt-10">
                   <div className="flex items-center gap-6 bg-[#F4F5F5] px-4 py-3 rounded-lg">
-                    <QtyControls id={id} quantity={productQty} />
+                    <QtyControls 
+                      id={id} 
+                      quantity={productQty}
+                      size="medium"
+                      onIncrement={() => setProductQty(prev => prev + 1)}
+                      onDecrement={() => setProductQty(prev => prev > 1 ? prev - 1 : 1)}
+                    />
                   </div>
             </div>
           </div>

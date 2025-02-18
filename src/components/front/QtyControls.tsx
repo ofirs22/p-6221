@@ -1,22 +1,23 @@
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Button } from '../../components/ui/button';
 import { Plus, Minus } from 'lucide-react';
-import { incrementQuantity, decrementQuantity } from '../../store/cartSlice';
 
 interface QtyControlsProps {
   id: string;
   quantity: number;
   size?: 'small' | 'medium' | 'large';
+  onIncrement: (id: string) => void;
+  onDecrement: (id: string) => void;
 }
 
 export const QtyControls: React.FC<QtyControlsProps> = ({
   id,
   quantity,
   size = 'medium',
+  onIncrement,
+  onDecrement,
 }) => {
-  const dispatch = useDispatch();
 
   // Define size configurations
   const sizeConfig = {
@@ -48,7 +49,7 @@ export const QtyControls: React.FC<QtyControlsProps> = ({
   return (
     <div className={`relative flex items-center bg-[#f4f5f5] rounded-full ${styles.container}`}>
       <Button
-        onClick={() => dispatch(decrementQuantity(id))}
+        onClick={() => onDecrement(id)}
         className={`${styles.button} rounded-full p-0 hover:bg-white`}
       >
         <Minus className={`${styles.icon} text-[#05172C]`} />
@@ -62,7 +63,7 @@ export const QtyControls: React.FC<QtyControlsProps> = ({
       </span>
 
       <Button
-        onClick={() => dispatch(incrementQuantity(id))}
+        onClick={() => onIncrement(id)}
         className={`absolute bg-white shadow-lg hover:bg-white rounded-full ${styles.plusButton}`}
       >
         <Plus className="w-full h-full text-[#05172C]" />

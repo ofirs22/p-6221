@@ -2,7 +2,7 @@
 import React from "react";
 import { QtyControls } from "../QtyControls";
 import { useDispatch } from "react-redux";
-import { removeItem } from "../../../store/cartSlice";
+import { removeItem, incrementQuantity, decrementQuantity } from "../../../store/cartSlice";
 import  Heart  from "../../Heart";
 import { Trash2 } from "lucide-react";
 
@@ -38,7 +38,13 @@ export const CartItem: React.FC<CartItemProps> = ({
         <button className="ml-4 text-gray-500 hover:text-gray-700">
           <Heart id={id} entity='product' size={'small'} />
         </button>
-        <QtyControls id={id} quantity={quantity} />
+        <QtyControls 
+          id={id} 
+          quantity={quantity}
+          size="medium"
+          onIncrement={(id) => dispatch(incrementQuantity(id))}
+          onDecrement={(id) => dispatch(decrementQuantity(id))}
+        />
       </div>
       <div className="flex items-center ml-auto">
         <div className="ml-4">
