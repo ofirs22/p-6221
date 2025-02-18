@@ -36,7 +36,7 @@ export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
 
   return (
     <div className="flex flex-col w-full bg-white rounded-xl shadow-sm p-4 mb-4">
-      <div className="flex justify-between items-center max-sm:flex-col max-sm:items-center max-sm:gap-3">
+      <div className="flex justify-between items-center">
         <button
           onClick={handleToggle}
           className="w-[46px] h-[46px] flex items-center justify-center bg-sky-500 rounded-full"
@@ -47,7 +47,7 @@ export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
             className={`w-6 h-6 transition-transform ${isOpen ? 'rotate-45' : ''}`}
           />
         </button>
-        <div className="flex flex-col items-end max-sm:items-center max-sm:text-center">
+        <div className="flex flex-col items-end">
           <h3 className="text-xl font-semibold text-[#05172C]">{list.title}</h3>
           <p className="text-sm text-gray-600">{list.description}</p>
         </div>
@@ -60,54 +60,54 @@ export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
             const quantity = listProduct ? listProduct.quantity : 1;
 
             return (
-              <div key={product.id} className="flex flex-col max-sm:items-center p-3 border rounded-lg">
-                <div className="flex items-center justify-between w-full max-sm:flex-col max-sm:gap-2">
-                  {/* Product Image and Name */}
-                  <div className="flex items-center gap-3 max-sm:flex-col max-sm:items-center">
+              <div key={product.id} className="flex p-3 border rounded-lg">
+                <div className="flex items-center justify-between w-full gap-4">
+                  {/* Right side: Image and product details */}
+                  <div className="flex items-center gap-3 flex-1">
                     <img 
                       src={product.image} 
                       alt={product.name} 
-                      className="w-12 h-12 object-contain"
+                      className="w-12 h-12 object-contain max-sm:w-10 max-sm:h-10"
                     />
-                    <span className="font-medium max-sm:text-center">{product.name}</span>
+                    <div className="flex flex-col">
+                      <span className="font-medium text-right">{product.name}</span>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-[#f00] font-semibold text-sm max-sm:text-xs">
+                          ₪{product.price.toFixed(2)}
+                        </span>
+                        {product.originalPrice && (
+                          <span className="text-gray-500 line-through text-sm max-sm:text-xs">
+                            ₪{product.originalPrice.toFixed(2)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Price and Controls */}
-                  <div className="flex items-center gap-4 max-sm:flex-col max-sm:items-center">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#f00] font-semibold">
-                        ₪{product.price.toFixed(2)}
-                      </span>
-                      {product.originalPrice && (
-                        <span className="text-gray-500 line-through text-sm">
-                          ₪{product.originalPrice.toFixed(2)}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <QtyControls id={product.id} quantity={quantity} size="small" />
-                      <button
-                        onClick={() => handleRemoveProduct(product.id)}
-                        className="text-red-500 hover:text-red-700 p-2"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
-                    </div>
+                  {/* Left side: Controls */}
+                  <div className="flex items-center gap-2">
+                    <QtyControls id={product.id} quantity={quantity} size="small" />
+                    <button
+                      onClick={() => handleRemoveProduct(product.id)}
+                      className="text-red-500 hover:text-red-700 p-2"
+                    >
+                      <Trash2 className="w-5 h-5 max-sm:w-4 max-sm:h-4" />
+                    </button>
                   </div>
                 </div>
               </div>
             );
           })}
           
-          <div className="flex justify-between mt-4 max-sm:flex-col max-sm:items-center max-sm:gap-3">
+          <div className="flex justify-between mt-4">
             <button
               onClick={() => onDelete(list.id)}
-              className="text-red-500 hover:text-red-700 px-4 py-2"
+              className="text-red-500 hover:text-red-700 px-4 py-2 text-sm"
             >
               מחק רשימה
             </button>
             <button 
-              className="bg-[#00BAFF] text-white px-6 py-2 rounded-full hover:bg-[#0096CC] max-sm:w-full"
+              className="bg-[#00BAFF] text-white px-6 py-2 rounded-full hover:bg-[#0096CC]"
             >
               שלח לעגלה
             </button>
