@@ -1,26 +1,36 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { Order } from '../types/orderTypes';
+import { orders } from '../data/mockOrders';
+import { OrderStatus, OrderState } from '../types/orderTypes';
 
-interface OrderState {
-  status: string;
-}
+
 
 const initialState: OrderState = {
-  status: 'השליח בדרך',
+  orders
 };
 
-const orderSlice = createSlice({
-  name: 'order',
+const ordersSlice = createSlice({
+  name: 'orders',
   initialState,
   reducers: {
-    setOrderStatus: (state, action: PayloadAction<string>) => {
-      state.status = action.payload;
+    addOrder: (state, action: PayloadAction<Order>) => {
+      state.orders.unshift(action.payload);
     },
-  },
+    setOrderStatus: (state, action: PayloadAction<{ id: string; status: OrderStatus; }>) => {
+      const index = state.orders.findIndex(order => order.id === action.payload.id);
+      if (index !== -1) {
+        state.orders[index] = { ...state.orders[index], status: action.payload.status };
+      }
+    },
+  }
 });
 
-export const { setOrderStatus } = orderSlice.actions;
+// Selectors
+export const selectOrders = (state: OrderState) => state.orders;  // Fixed here
+export const selectOrderById = (state: OrderState, orderId: string) => 
+  state.orders.find(order => order.id === orderId);  // Fixed here
+export const selectOrderStatus = (state: OrderState, orderId: string) => 
+  state.orders.find(order => order.id === orderId)?.status;  // Fixed here
 
-export const selectOrderStatus = (state: RootState) => state.order.status;
-
-export default orderSlice.reducer;
+export const { addOrder, setOrderStatus } = ordersSlice.actions;
+export default ordersSlice.reducer;

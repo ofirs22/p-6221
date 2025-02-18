@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAddress, updateAddress } from '../../../store/userSlice';
-import { AddressCard } from './AddressCard';
+
 import { EditButton } from './EditButton';
 
 export const AddressComponent: React.FC = () => {
