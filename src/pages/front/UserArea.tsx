@@ -15,34 +15,33 @@ export const UserArea = () => {
         rel="stylesheet"
       />
       <div className="flex flex-col justify-center p-6 mx-auto w-full rounded-2xl max-w-[1104px] min-w-[240px] max-md:p-4 max-sm:p-3">
-        {/* Card wrapper with improved responsive spacing */}
         <div className="flex flex-col gap-3 max-sm:gap-2">
           {/* User Header Card */}
-          <div className="flex flex-col justify-center p-8 w-full bg-white rounded-2xl shadow-lg max-w-[1104px] min-w-[240px] max-sm:p-4">
+          <div className="flex flex-col justify-center p-8 w-full bg-white rounded-2xl shadow-lg max-w-[1104px] min-w-[240px] max-sm:p-4 max-sm:items-center">
             <UserHeader />
           </div>
 
           {/* Savings Display Card */}
-          <div className="flex flex-col justify-center p-8 w-full bg-white rounded-2xl shadow-lg max-w-[1104px] min-w-[240px] max-sm:p-4">
+          <div className="flex flex-col justify-center p-8 w-full bg-white rounded-2xl shadow-lg max-w-[1104px] min-w-[240px] max-sm:p-4 max-sm:items-center">
             <SavingsDisplay />
           </div>
 
           {/* Address Component Card */}
-          <div className="flex flex-col justify-center p-8 w-full bg-white rounded-2xl shadow-lg max-w-[1104px] min-w-[240px] text-right max-sm:p-4">
+          <div className="flex flex-col justify-center p-8 w-full bg-white rounded-2xl shadow-lg max-w-[1104px] min-w-[240px] text-right max-sm:p-4 max-sm:items-center">
             <TrackingCard title="הכתובת שלי" titleWidth={180}>
-              <div className="pt-4 max-sm:pt-2">
+              <div className="pt-4 max-sm:pt-2 max-sm:w-full">
                 <AddressComponent />
               </div>
             </TrackingCard>
           </div>
 
-          {/* Favorite Products Card - Added responsive padding */}
-          <div className="flex flex-col justify-center p-8 w-full bg-white rounded-2xl shadow-lg max-w-[1104px] min-w-[240px] max-sm:p-4">
+          {/* Favorite Products Card */}
+          <div className="flex flex-col justify-center p-8 w-full bg-white rounded-2xl shadow-lg max-w-[1104px] min-w-[240px] max-sm:p-4 max-sm:items-center">
             <FavoriteProducts />
           </div>
 
-          {/* My Lists Card - Added responsive padding */}
-          <div className="flex flex-col justify-center p-8 w-full bg-white rounded-2xl shadow-lg max-w-[1104px] min-w-[240px] max-sm:p-4">
+          {/* My Lists Card */}
+          <div className="flex flex-col justify-center p-8 w-full bg-white rounded-2xl shadow-lg max-w-[1104px] min-w-[240px] max-sm:p-4 max-sm:items-center">
             <UserLists />
           </div>
         </div>

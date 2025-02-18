@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from '../../components/ui/button';
@@ -20,25 +21,25 @@ export const QtyControls: React.FC<QtyControlsProps> = ({
   // Define size configurations
   const sizeConfig = {
     small: {
-      container: 'w-[105px] h-[32px] gap-2 px-2 py-1',
-      button: 'w-[28px] h-[28px]',
-      plusButton: 'w-[50px] h-[50px] right-[-12px] top-[-10px]', // Extends outside
-      icon: 'h-[10px] w-[10px]',
-      text: 'text-sm',
+      container: 'w-[90px] h-[28px] gap-1 px-1 py-1',
+      button: 'w-[24px] h-[24px]',
+      plusButton: 'w-[40px] h-[40px] right-[-8px] top-[-6px]',
+      icon: 'h-[8px] w-[8px]',
+      text: 'text-xs',
     },
     medium: {
-      container: 'w-[145px] h-[40px] gap-3 px-3 py-2',
-      button: 'w-[40px] h-[40px]',
-      plusButton: 'w-[70px] h-[70px] right-[-15px] top-[-15px]',
-      icon: 'h-[13px] w-[13px]',
-      text: 'text-base',
+      container: 'w-[145px] h-[40px] gap-3 px-3 py-2 max-sm:w-[105px] max-sm:h-[32px] max-sm:gap-2 max-sm:px-2 max-sm:py-1',
+      button: 'w-[40px] h-[40px] max-sm:w-[28px] max-sm:h-[28px]',
+      plusButton: 'w-[70px] h-[70px] right-[-15px] top-[-15px] max-sm:w-[50px] max-sm:h-[50px] max-sm:right-[-12px] max-sm:top-[-10px]',
+      icon: 'h-[13px] w-[13px] max-sm:h-[10px] max-sm:w-[10px]',
+      text: 'text-base max-sm:text-sm',
     },
     large: {
-      container: 'w-[185px] h-[48px] gap-4 px-4 py-3',
-      button: 'w-[52px] h-[52px]',
-      plusButton: 'w-[90px] h-[90px] right-[-18px] top-[-18px]',
-      icon: 'h-[16px] w-[16px]',
-      text: 'text-lg',
+      container: 'w-[185px] h-[48px] gap-4 px-4 py-3 max-sm:w-[145px] max-sm:h-[40px] max-sm:gap-3 max-sm:px-3 max-sm:py-2',
+      button: 'w-[52px] h-[52px] max-sm:w-[40px] max-sm:h-[40px]',
+      plusButton: 'w-[90px] h-[90px] right-[-18px] top-[-18px] max-sm:w-[70px] max-sm:h-[70px] max-sm:right-[-15px] max-sm:top-[-15px]',
+      icon: 'h-[16px] w-[16px] max-sm:h-[13px] max-sm:w-[13px]',
+      text: 'text-lg max-sm:text-base',
     },
   };
 
