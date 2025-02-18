@@ -1,9 +1,9 @@
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './index';
 import { List } from '../types/listsType';
+import { mockLists } from '../data/mockLists';
 
-const initialState: List[] = [];
+const initialState: List[] = mockLists;
 
 const listsSlice = createSlice({
   name: 'lists',
@@ -21,16 +21,16 @@ const listsSlice = createSlice({
     deleteList: (state, action: PayloadAction<string>) => {
       return state.filter(list => list.id !== action.payload);
     },
-    addProductToList: (state, action: PayloadAction<{ listId: string; productId: string }>) => {
+    addProductToList: (state, action: PayloadAction<{ listId: string; products: { productId: string; quantity: number; }; }>) => {
       const list = state.find(list => list.id === action.payload.listId);
-      if (list && !list.products.includes(action.payload.productId)) {
-        list.products.push(action.payload.productId);
+      if (list && !list.products.some(p => p.productId === action.payload.products.productId)) {
+        list.products.push(action.payload.products);
       }
     },
-    removeProductFromList: (state, action: PayloadAction<{ listId: string; productId: string }>) => {
+    removeProductFromList: (state, action: PayloadAction<{ listId: string; products: { productId: string; quantity: number; }; }>) => {
       const list = state.find(list => list.id === action.payload.listId);
       if (list) {
-        list.products = list.products.filter(id => id !== action.payload.productId);
+        list.products = list.products.filter(p => p.productId !== action.payload.products.productId);
       }
     },
   },

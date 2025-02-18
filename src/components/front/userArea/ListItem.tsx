@@ -1,10 +1,11 @@
-
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { List } from '../../../types/listsType';
-import { removeProductFromList } from '../../../store/listSlice';
-import { RootState } from '../../../store';
-import { Product } from '../../../types/productTypes';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { List } from "../../../types/listsType";
+import { removeProductFromList } from "../../../store/listSlice";
+import { RootState } from "../../../store";
+import { Product } from "../../../types/productTypes";
+import { Trash2 } from "lucide-react";
+import { QtyControls } from "../QtyControls";
 
 interface ListItemProps {
   list: List;
@@ -16,10 +17,22 @@ export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.products.products);
 
-  const listProducts = products.filter(product => list.products.includes(product.id));
+  const listProducts = products.filter((product) =>
+    list.products.some((listProduct) => listProduct.productId === product.id)
+  );
+
+  const getProductQuantity = (productId: string) => {
+    const listProduct = list.products.find((p) => p.productId === productId);
+    return listProduct ? listProduct.quantity : 0;
+  };
 
   const handleRemoveProduct = (productId: string) => {
-    dispatch(removeProductFromList({ listId: list.id, productId }));
+    dispatch(
+      removeProductFromList({
+        listId: list.id,
+        products: { productId, quantity: getProductQuantity(productId) },
+      })
+    );
   };
 
   const handleToggle = () => {
@@ -36,7 +49,9 @@ export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
           <img
             src="https://cdn.builder.io/api/v1/image/assets/3bd4fc55ef394bd184dc9786c01c1445/2277651fbb37846363b9b2544db190230f4a4032aa581ad2f5d1cffe4dab8ee2?apiKey=3bd4fc55ef394bd184dc9786c01c1445&"
             alt={isOpen ? "Close list" : "Open list"}
-            className={`w-6 h-6 transition-transform ${isOpen ? 'rotate-45' : ''}`}
+            className={`w-6 h-6 transition-transform ${
+              isOpen ? "rotate-45" : ""
+            }`}
           />
         </button>
         <div className="flex flex-col items-end">
@@ -48,36 +63,49 @@ export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
       {isOpen && (
         <div className="mt-4 space-y-3">
           {listProducts.map((product: Product) => (
-            <div key={product.id} className="flex justify-between items-center p-3 border rounded-lg">
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => handleRemoveProduct(product.id)}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  הסר
-                </button>
-                <div className="flex items-center">
-                  <span className="text-[#f00] font-semibold ml-2">
-                    ₪{product.price.toFixed(2)}
-                  </span>
-                  {product.originalPrice && (
-                    <span className="text-gray-500 line-through text-sm ml-2">
-                      ₪{product.originalPrice.toFixed(2)}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="font-medium">{product.name}</span>
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
-                  className="w-12 h-12 object-contain"
-                />
-              </div>
-            </div>
-          ))}
-          
+  <div key={product.id} className="flex items-center p-3 border rounded-lg">
+    {/* Left Side: Trash & Qty Controls */}
+    <div className="flex items-center gap-3">
+      <button
+        onClick={() => handleRemoveProduct(product.id)}
+        className="text-red-500 hover:text-red-700"
+      >
+        <Trash2 className="w-5 h-5" />
+      </button>
+      <QtyControls id={product.id} quantity={getProductQuantity(product.id)} size="small" />
+    </div>
+
+    {/* Right Side: Name, Price, and Image (Aligned Right) */}
+    <div className="flex items-center gap-3 ml-auto">
+      <div className="flex flex-col items-end">
+        {/* Product Name (Top) */}
+        <span className="font-medium">{product.name}</span>
+        
+        {/* Price & Original Price (Below Name) */}
+        <div className="flex gap-2">
+          <span className="text-[#f00] font-semibold">
+            ₪{product.price.toFixed(2)}
+          </span>
+          {product.originalPrice && (
+            <span className="text-gray-500 line-through text-sm">
+              ₪{product.originalPrice.toFixed(2)}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Product Image (Rightmost) */}
+      <img 
+        src={product.image} 
+        alt={product.name} 
+        className="w-12 h-12 object-contain"
+      />
+    </div>
+  </div>
+))}
+
+
+
           <div className="flex justify-between mt-4">
             <button
               onClick={() => onDelete(list.id)}
@@ -85,9 +113,11 @@ export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
             >
               מחק רשימה
             </button>
-            <button 
+            <button
               className="bg-[#00BAFF] text-white px-6 py-2 rounded-full hover:bg-[#0096CC]"
-              onClick={() => {/* TODO: Implement send to cart */}}
+              onClick={() => {
+                /* TODO: Implement send to cart */
+              }}
             >
               שלח לעגלה
             </button>

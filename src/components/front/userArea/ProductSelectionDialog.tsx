@@ -36,12 +36,13 @@ export const ProductSelectionDialog: React.FC<ProductSelectionDialogProps> = ({
 
   const handleSubmit = () => {
     onProductsSelected(selectedProducts);
+    setSelectedProducts([]);
     onClose();
   };
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl">
+      <DialogContent className="max-w-3xl bg-white">
         <DialogHeader>
           <DialogTitle className="text-right">בחר מוצרים לרשימה</DialogTitle>
         </DialogHeader>

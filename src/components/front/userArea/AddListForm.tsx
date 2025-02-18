@@ -22,7 +22,7 @@ export const AddListForm: React.FC<AddListFormProps> = ({ onAddList }) => {
     }
   };
 
-  const handleProductsSelected = (selectedProducts: string[]) => {
+  const handleProductsSelected = (selectedProducts: []) => {
     const newList: List = {
       id: tempListId,
       title,
