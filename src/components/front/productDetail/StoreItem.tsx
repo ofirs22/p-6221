@@ -1,12 +1,11 @@
-
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem } from '../../../store/cartSlice';
+import { addItem, incrementQuantity, decrementQuantity } from '../../../store/cartSlice';
 import ProductBottomDetails from './productBottomDetails';
 import { CartItemProps } from '@/types/cartTypes';
 import { toast } from 'sonner';
 import { QtyControls } from '../QtyControls';
-import  Heart from '../../Heart';
+import Heart from '../../Heart';
 
 type StoreItemProps = {
   id: string;
@@ -45,12 +44,18 @@ const StoreItem: React.FC<StoreItemProps> = ({
       quantity: productQty,
       image
     };
-    console.log('Adding item to cart:', cartItem);
     dispatch(addItem(cartItem));
     toast.success('המוצר נוסף לעגלה בהצלחה');
-    console.log('Cart item dispatched');
   };
-  console.log(id)
+
+  const handleIncreaseQuantity = () => {
+    setProductQty(prev => prev + 1);
+  };
+
+  const handleDecreaseQuantity = () => {
+    setProductQty(prev => Math.max(1, prev - 1));
+  };
+
   return (
     <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
       <div className="flex flex-col self-stretch my-auto max-md:mt-10 max-md:max-w-full">
@@ -66,17 +71,16 @@ const StoreItem: React.FC<StoreItemProps> = ({
             </div>
           </div>
           <div className="flex gap-10 pl-6 mt-11 text-lg font-bold whitespace-nowrap rounded-3xl bg-blend-normal text-slate-700 max-md:pl-5 max-md:mt-10">
-                  <div className="flex items-center gap-6 bg-[#F4F5F5] px-4 py-3 rounded-lg">
-                    <QtyControls id={id} quantity={productQty} />
-                  </div>
+            <div className="flex items-center gap-6 bg-[#F4F5F5] px-4 py-3 rounded-lg">
+              <QtyControls 
+                id={id} 
+                quantity={productQty} 
+                onIncrease={() => handleIncreaseQuantity()}
+                onDecrease={() => handleDecreaseQuantity()}
+              />
             </div>
           </div>
           <div className="flex gap-6 items-center self-stretch mt-12 max-md:mt-10 justify-between">
-            {/* {socialIcons.map((icon, index) => (
-              <div key={index} className="flex gap-2.5 justify-center items-center self-stretch px-2.5 my-auto bg-white shadow-sm h-[52px] min-h-[52px] rounded-[103px] w-[52px]">
-                <img loading="lazy" src={icon.iconSrc} alt={icon.iconAlt} className="object-contain self-stretch my-auto aspect-square w-[13px]" />
-              </div>
-            ))} */}
             <div className="flex gap-2.5 justify-center items-center self-stretch px-2.5 my-auto bg-white shadow-sm h-[52px] min-h-[52px] rounded-[103px] w-[52px]">
               <img loading="lazy" src={socialIcons[0].iconSrc} alt={socialIcons[0].iconAlt} className="object-contain self-stretch my-auto aspect-square w-[13px]" />
             </div>
@@ -106,7 +110,7 @@ const StoreItem: React.FC<StoreItemProps> = ({
         <div className="flex shrink-0 mt-9 h-px bg-neutral-300 max-md:max-w-full" />
         <div className="mt-9 ml-3.5 text-base leading-6 text-right text-slate-700 max-md:max-w-full">{description}</div>
       </div>
-
+    </div>
   );
 };
 

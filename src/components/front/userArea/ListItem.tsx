@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { List } from '../../../types/listsType';
@@ -7,7 +6,8 @@ import { RootState } from '../../../store';
 import { Product } from '../../../types/productTypes';
 import { QtyControls } from '../QtyControls';
 import { Trash2 } from 'lucide-react';
-import { useMobile} from '../../../hooks/use-mobile'
+import { incrementQuantity, decrementQuantity } from '../../../store/cartSlice';
+import { useMobile } from '../../../hooks/use-mobile';
 
 interface ListItemProps {
   list: List;
@@ -20,7 +20,6 @@ export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.products.products);
 
-  // Find products that match the productIds in the list
   const listProducts = products.filter(product => 
     list.products.some(listProduct => listProduct.productId === product.id)
   );
@@ -30,6 +29,14 @@ export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
       listId: list.id, 
       products: { productId, quantity: 1 } 
     }));
+  };
+
+  const handleIncreaseQuantity = (productId: string) => {
+    dispatch(incrementQuantity(productId));
+  };
+
+  const handleDecreaseQuantity = (productId: string) => {
+    dispatch(decrementQuantity(productId));
   };
 
   const handleToggle = () => {
@@ -58,51 +65,51 @@ export const ListItem: React.FC<ListItemProps> = ({ list, onDelete }) => {
       {isOpen && (
         <div className="mt-4 space-y-3">
           {listProducts.map((product: Product) => {
-  const listProduct = list.products.find(p => p.productId === product.id);
-  const quantity = listProduct ? listProduct.quantity : 1;
+            const listProduct = list.products.find(p => p.productId === product.id);
+            const quantity = listProduct ? listProduct.quantity : 1;
 
-  return (
-    <div key={product.id} className="flex p-3 border rounded-lg">
-      <div className="flex items-center justify-between w-full gap-4 flex-row-reverse">
-        {/* Right Side: Image and Product Details */}
-        <div className="flex items-center gap-3 flex-1 justify-end">
-
-          <div className="flex flex-col items-end">
-            <span className="font-medium">{product.name}</span>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="text-[#f00] font-semibold text-sm max-sm:text-xs">
-                ₪{product.price.toFixed(2)}
-              </span>
-              {product.originalPrice && (
-                <span className="text-gray-500 line-through text-sm max-sm:text-xs">
-                  ₪{product.originalPrice.toFixed(2)}
-                </span>
-              )}
-            </div>
-          </div>
-          {!isMobile && <img 
-            src={product.image} 
-            alt={product.name} 
-            className="w-12 h-12 object-contain max-sm:w-10 max-sm:h-10"
-          />}
-        </div>
-
-        {/* Left Side: Controls */}
-        <div className="flex items-center gap-2">
-          
-          <button
-            onClick={() => handleRemoveProduct(product.id)}
-            className="text-red-500 hover:text-red-700 p-2"
-          >
-            <Trash2 className="w-5 h-5 max-sm:w-4 max-sm:h-4" />
-          </button>
-          <QtyControls id={product.id} quantity={quantity} size={'small'} />
-        </div>
-      </div>
-    </div>
-  );
-})}
-
+            return (
+              <div key={product.id} className="flex p-3 border rounded-lg">
+                <div className="flex items-center justify-between w-full gap-4">
+                  <div className="flex items-center gap-3 flex-1 justify-end">
+                    <div className="flex flex-col items-end">
+                      <span className="font-medium">{product.name}</span>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-[#f00] font-semibold text-sm max-sm:text-xs">
+                          ₪{product.price.toFixed(2)}
+                        </span>
+                        {product.originalPrice && (
+                          <span className="text-gray-500 line-through text-sm max-sm:text-xs">
+                            ₪{product.originalPrice.toFixed(2)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {!isMobile && <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      className="w-12 h-12 object-contain max-sm:w-10 max-sm:h-10"
+                    />}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <QtyControls 
+                      id={product.id} 
+                      quantity={quantity} 
+                      size="small"
+                      onIncrease={handleIncreaseQuantity}
+                      onDecrease={handleDecreaseQuantity}
+                    />
+                    <button
+                      onClick={() => handleRemoveProduct(product.id)}
+                      className="text-red-500 hover:text-red-700 p-2"
+                    >
+                      <Trash2 className="w-5 h-5 max-sm:w-4 max-sm:h-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
           
           <div className="flex justify-between mt-4">
             <button

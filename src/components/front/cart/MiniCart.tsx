@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { X, Trash2 } from 'lucide-react';
-import { selectCartItems, selectCart, removeItem } from '../../../store/cartSlice';
+import { selectCartItems, selectCart, removeItem, incrementQuantity, decrementQuantity } from '../../../store/cartSlice';
 import { Link } from 'react-router-dom';
 import { QtyControls } from '../QtyControls';
 
@@ -16,12 +15,19 @@ const MiniCart: React.FC<MiniCartProps> = ({ isOpen, onClose }) => {
   const cart = useSelector(selectCart);
   const dispatch = useDispatch();
 
+  const handleIncreaseQuantity = (id: string) => {
+    dispatch(incrementQuantity(id));
+  };
+
+  const handleDecreaseQuantity = (id: string) => {
+    dispatch(decrementQuantity(id));
+  };
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-y-0 right-0 w-full sm:w-[380px] md:w-[450px] bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 max-h-screen overflow-hidden">
       <div className="h-full flex flex-col">
-        {/* Header */}
         <div className="p-4 border-b flex justify-between items-center">
           <h2 className="text-lg font-semibold">עגלת קניות</h2>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
@@ -29,7 +35,6 @@ const MiniCart: React.FC<MiniCartProps> = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        {/* Cart Info */}
         <div className="border-b p-4">
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-600">{cart.totalItems} פריטים</span>
@@ -37,7 +42,6 @@ const MiniCart: React.FC<MiniCartProps> = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Cart Items */}
         <div className="flex-1 overflow-y-auto p-2 sm:p-4">
           {cartItems.length === 0 ? (
             <div className="text-center py-8">
@@ -47,19 +51,22 @@ const MiniCart: React.FC<MiniCartProps> = ({ isOpen, onClose }) => {
             <div className="space-y-4">
               {cartItems.map((item) => (
                 <div key={item.id} className="flex items-start gap-2 sm:gap-3 pb-4 border-b">
-                  {/* Controls */}
-                  <div className="flex  items-center gap-2">
-                  <button 
+                  <div className="flex items-center gap-2">
+                    <button 
                       className="p-1 hover:text-red-500 transition-colors"
                       onClick={() => dispatch(removeItem(item.id))}
                     >
                       <Trash2 size={16} color='red'/>
                     </button>
-                    <QtyControls id={item.id} quantity={item.quantity} size="small" />
-
+                    <QtyControls 
+                      id={item.id} 
+                      quantity={item.quantity} 
+                      size="small"
+                      onIncrease={handleIncreaseQuantity}
+                      onDecrease={handleDecreaseQuantity}
+                    />
                   </div>
                   <div className="flex flex-1 items-start gap-3">
-                    {/* Details */}
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-medium text-gray-900 mb-1 text-right">{item.name}</h3>
                       <div className="flex justify-end items-baseline gap-2 mb-1">
@@ -69,7 +76,6 @@ const MiniCart: React.FC<MiniCartProps> = ({ isOpen, onClose }) => {
                         )}
                       </div>
                     </div>
-                    {/* Image */}
                     <img 
                       src={item.image} 
                       alt={item.name} 
@@ -82,7 +88,6 @@ const MiniCart: React.FC<MiniCartProps> = ({ isOpen, onClose }) => {
           )}
         </div>
 
-        {/* Footer */}
         <div className="border-t p-4">
           <div className="flex justify-between mb-4">
             <span className="font-semibold">₪{cart.totalPrice.toFixed(2)}</span>
