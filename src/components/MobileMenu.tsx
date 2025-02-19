@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ShoppingCart, User } from 'lucide-react';
 import './styles/Menu.css';
-import { RootState } from '../app/store';
+import { RootState } from '../store';
 
 interface MobileMenuProps {
   onClose: () => void;

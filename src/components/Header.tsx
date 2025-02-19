@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { User, ShoppingCart, Menu, Search } from 'lucide-react';
 import MiniCart from './front/cart/MiniCart';
-import { login, logout } from '../store/userSlice';
+import { logout } from '../store/userSlice';
 import { RootState } from '../app/store';
 import { selectCartItems } from '../store/cartSlice';
 import {
