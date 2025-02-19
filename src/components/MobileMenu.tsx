@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ShoppingCart, User } from 'lucide-react';
 import './styles/Menu.css';
@@ -11,7 +12,19 @@ interface MobileMenuProps {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ onClose }) => {
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
-  const userEmail = useSelector((state: RootState) => state.user.userInfo.email);
+  const firstName = useSelector((state: RootState) => state.user.userInfo.firstName);
+  const lastName = useSelector((state: RootState) => state.user.userInfo.lastName);
+  const navigate = useNavigate();
+
+  const handleAvatarClick = () => {
+    navigate('/profile');
+    onClose();
+  };
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    onClose();
+  };
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50" onClick={onClose}>
@@ -39,25 +52,25 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onClose }) => {
 
           {/* User Section */}
           <div className="mt-12 mb-6 flex flex-col items-center">
-            <User className="h-12 w-12 mb-2" />
+            <button onClick={handleAvatarClick}>
+              <User className="h-12 w-12 mb-2" />
+            </button>
             {isAuthenticated ? (
-              <span className="text-sm text-gray-600">{userEmail}</span>
+              <span className="text-sm text-gray-600">{`${firstName} ${lastName}`}</span>
             ) : (
               <div className="space-y-2 w-full">
-                <Link 
-                  to="/login" 
+                <button 
+                  onClick={() => handleNavigation('/login')}
                   className="block w-full py-2 text-center text-[#05172C] hover:text-[#00BAFF]"
-                  onClick={onClose}
                 >
                   התחברות
-                </Link>
-                <Link 
-                  to="/signup"
+                </button>
+                <button 
+                  onClick={() => handleNavigation('/signup')}
                   className="block w-full py-2 text-center bg-[#00BAFF] text-white rounded-lg hover:bg-[#0096CC]"
-                  onClick={onClose}
                 >
                   הרשמה
-                </Link>
+                </button>
               </div>
             )}
           </div>
@@ -75,68 +88,60 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onClose }) => {
           </button>
 
           <nav className="mt-6 space-y-4">
-            <Link 
-              to="/" 
-              className="block py-2 text-[#05172C] hover:text-[#00BAFF]"
-              onClick={onClose}
+            <button 
+              onClick={() => handleNavigation('/')}
+              className="block w-full text-right py-2 text-[#05172C] hover:text-[#00BAFF]"
             >
               בית
-            </Link>
-            <Link 
-              to="/about" 
-              className="block py-2 text-[#05172C] hover:text-[#00BAFF]"
-              onClick={onClose}
+            </button>
+            <button 
+              onClick={() => handleNavigation('/about')}
+              className="block w-full text-right py-2 text-[#05172C] hover:text-[#00BAFF]"
             >
               אודות
-            </Link>
-            <Link 
-              to="/products" 
-              className="block py-2 text-[#05172C] hover:text-[#00BAFF]"
-              onClick={onClose}
+            </button>
+            <button 
+              onClick={() => handleNavigation('/products')}
+              className="block w-full text-right py-2 text-[#05172C] hover:text-[#00BAFF]"
             >
               מוצרים
-            </Link>
-            <Link 
-              to="/packages" 
-              className="block py-2 text-[#05172C] hover:text-[#00BAFF]"
-              onClick={onClose}
+            </button>
+            <button 
+              onClick={() => handleNavigation('/packages')}
+              className="block w-full text-right py-2 text-[#05172C] hover:text-[#00BAFF]"
             >
               חבילות
-            </Link>
-            <Link 
-              to="/partners" 
-              className="block py-2 text-[#05172C] hover:text-[#00BAFF]"
-              onClick={onClose}
+            </button>
+            <button 
+              onClick={() => handleNavigation('/partners')}
+              className="block w-full text-right py-2 text-[#05172C] hover:text-[#00BAFF]"
             >
               ספקים
-            </Link>
+            </button>
           </nav>
 
           {isAuthenticated && (
             <div className="mt-6 space-y-4">
-              <Link 
-                to="/profile" 
-                className="block py-2 text-[#05172C] hover:text-[#00BAFF]"
-                onClick={onClose}
+              <button 
+                onClick={() => handleNavigation('/profile')}
+                className="block w-full text-right py-2 text-[#05172C] hover:text-[#00BAFF]"
               >
                 הפרופיל שלי
-              </Link>
-              <Link 
-                to="/orders" 
-                className="block py-2 text-[#05172C] hover:text-[#00BAFF]"
-                onClick={onClose}
+              </button>
+              <button 
+                onClick={() => handleNavigation('/orders')}
+                className="block w-full text-right py-2 text-[#05172C] hover:text-[#00BAFF]"
               >
                 ההזמנות שלי
-              </Link>
-              <Link 
-                to="/orders" 
-                className="block py-2 text-[#05172C] hover:text-[#00BAFF]"
-                onClick={onClose}
+              </button>
+              <button 
+                onClick={() => handleNavigation('/lists')}
+                className="block w-full text-right py-2 text-[#05172C] hover:text-[#00BAFF]"
               >
                 הרשימות שלי
-              </Link>
+              </button>
               <button 
-                className="w-full py-2 text-red-600 hover:text-red-700"
+                className="w-full text-right py-2 text-red-600 hover:text-red-700"
                 onClick={onClose}
               >
                 התנתק
