@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import PackageDetailCard from "./PackageDetailCard";
+
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
@@ -36,12 +36,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} bg-white border border-gray-200 rounded-lg p-4 md:p-10 gap-4 md:gap-8 w-full max-w-[69rem] mx-auto`}
+      className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} bg-white border border-gray-200 rounded-lg p-4 md:p-10 gap-4 md:gap-8 w-full max-w-[69rem] mx-auto items-center`}
       onClick={() => onToggle(id)}
     >
       {/* Image Section */}
       <div
-        className="flex-shrink-0 bg-white rounded-lg overflow-hidden shadow-md w-full md:w-[21.25rem]"
+        className="flex-shrink-0 bg-white rounded-lg overflow-hidden shadow-md w-full md:w-[21.25rem] flex items-center justify-center"
       >
         <img
           src={image}
@@ -58,7 +58,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           {/* Main Content Area */}
           <div className="flex-1 p-4 md:p-8 pb-0">
             {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
               <div className="flex items-center gap-4">
                 <span
                   className="text-xl md:text-[2.25rem] font-bold text-[#FC4B4E]"
@@ -73,7 +73,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   ₪{originalPrice.toFixed(2)}
                 </span>
               </div>
-              <div className="flex flex-col items-start md:items-end">
+              <div className="flex flex-col items-center md:items-end text-center md:text-right">
                 <span
                   className="text-lg md:text-[1.5rem] font-bold text-[#05172C]"
                   style={{ fontFamily: "Ploni DL 1.1 AAA" }}
@@ -86,7 +86,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
             {/* Description */}
             <p
-              className="text-base md:text-[1.25rem] text-[#05172C] mt-6"
+              className="text-base md:text-[1.25rem] text-[#05172C] mt-6 text-center md:text-right"
               style={{ fontFamily: "Ploni ML v2 AAA" }}
             >
               {description}
@@ -94,7 +94,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
 
           {/* Actions */}
-          <div className="p-4 md:p-8 flex flex-wrap md:flex-nowrap items-center gap-4">
+          <div className="p-4 md:p-8 flex flex-wrap md:flex-nowrap items-center justify-center gap-4">
             {/* Heart Button */}
             <button
               className={`w-12 h-12 md:w-[3.313rem] md:h-[3.313rem] rounded-full flex items-center justify-center shadow-md transition-colors duration-300 ${isFavorite ? "bg-[#00BAFF]" : "bg-white"}`}
