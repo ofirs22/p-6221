@@ -6,7 +6,7 @@ import { mockLists } from '../data/mockLists';
 const initialState: List[] = mockLists;
 
 const listsSlice = createSlice({
-  name: 'lists',
+  name: 'list',
   initialState,
   reducers: {
     addList: (state, action: PayloadAction<List>) => {
@@ -54,8 +54,8 @@ export const {
   updateProductQuantity 
 } = listsSlice.actions;
 
-export const selectLists = (state: RootState) => state.lists;
+export const selectLists = (state: RootState) => state.list;
 export const selectListById = (state: RootState, listId: string) => 
-  state.lists.find(list => list.id === listId);
+  state.list.find(list => list.id === listId);
 
 export default listsSlice.reducer;

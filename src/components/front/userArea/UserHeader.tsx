@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectUserDetails, logout } from '../../../store/userSlice';
 import { LogoutButton } from './LogoutButton';
 import { UserGreeting } from './UserGreeting';
+import { useNavigate } from 'react-router-dom';
 
 interface UserHeaderProps {
   className?: string;
@@ -11,10 +12,13 @@ interface UserHeaderProps {
 
 export const UserHeader: React.FC<UserHeaderProps> = ({ className = '' }) => {
   const user = useSelector(selectUserDetails);
+  console.log(user)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate('/');
   };
 
   return (

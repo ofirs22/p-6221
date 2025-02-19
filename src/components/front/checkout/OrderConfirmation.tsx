@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { addOrder } from '../../../store/orderSlice';
 import { clearCart } from '../../../store/cartSlice';
 import { Order, OrderStatus } from '../../../types/orderTypes';
+import { setSavingsAmount } from '../../../store/userSlice';
 
 
 
@@ -38,6 +39,7 @@ const OrderConfirmation: React.FC = () => {
     // Dispatch actions
     dispatch(addOrder(newOrder));
     dispatch(clearCart());
+    dispatch(setSavingsAmount(cart.totalSaving));
 
     // Navigate to tracking
     navigate('/checkout/tracking');
