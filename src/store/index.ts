@@ -11,7 +11,7 @@ import orderReducer from './orderSlice';
 import courierReducer from './courierSlice';
 import paymentReducer from './paymentSlice';
 import listReducer from './listSlice';
-import listsReducer from './listsSlice';  
+//import listsReducer from './listsSlice';  
 
 const store = configureStore({
   reducer: {
@@ -25,7 +25,7 @@ const store = configureStore({
     order: orderReducer, 
     courier: courierReducer,
     payment: paymentReducer, 
-    lists: listReducer, 
+    //lists: listReducer, 
     list: listReducer, 
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),

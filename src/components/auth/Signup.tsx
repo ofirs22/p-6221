@@ -1,8 +1,49 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaApple } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { registerAsync } from '../../store/userSlice';
+import { AppDispatch } from '../../store';
 
 export const Signup: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    password: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const userData = {
+        firstName: `${formData.name}` ,
+        lastName: `${formData.lastName}`,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password
+      };
+      
+      const result = await dispatch(registerAsync(userData)).unwrap();
+      if (result) {
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Registration failed:', error);
+      // You can set an error state here to show to the user
+    }
+  };
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#F4F5F5] p-4">
       <div className="w-[365px] bg-white rounded-[18px] shadow-[0px_2px_12px_0px_rgba(183,189,196,0.50)] p-10">
@@ -21,7 +62,7 @@ export const Signup: React.FC = () => {
           <div className="w-full h-px bg-[#D2D2D2] my-2" />
 
           {/* Form */}
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             {/* Name Field */}
             <div className="flex flex-col gap-2">
               <label 
@@ -35,6 +76,8 @@ export const Signup: React.FC = () => {
                 type="text"
                 id="name"
                 placeholder="שם"
+                value={formData.name}
+                onChange={handleChange}
                 className="w-full h-[48px] px-5 border border-[#D2D2D2] rounded-lg text-[14px] text-[#05172C] focus:outline-none focus:border-[#00BAFF] input-right-placeholder"
                 style={{ fontFamily: 'Ploni ML v2 AAA' }}
               />
@@ -53,6 +96,8 @@ export const Signup: React.FC = () => {
                 type="text"
                 id="lastName"
                 placeholder="שם משפחה"
+                value={formData.lastName}
+                onChange={handleChange}
                 className="input-right-placeholder w-full h-[48px] px-5 border border-[#D2D2D2] rounded-lg text-[14px] text-[#05172C] focus:outline-none focus:border-[#00BAFF]"
                 style={{ fontFamily: 'Ploni ML v2 AAA' }}
               />
@@ -71,6 +116,8 @@ export const Signup: React.FC = () => {
                 type="tel"
                 id="phone"
                 placeholder="מספר טלפון"
+                value={formData.phone}
+                onChange={handleChange}
                 className="input-right-placeholder w-full h-[48px] px-5 border border-[#D2D2D2] rounded-lg text-[14px] text-[#05172C] focus:outline-none focus:border-[#00BAFF]"
                 style={{ fontFamily: 'Ploni ML v2 AAA' }}
               />
@@ -79,6 +126,7 @@ export const Signup: React.FC = () => {
             {/* Email Field */}
             <div className="flex flex-col gap-2">
               <label 
+                id="email"
                 htmlFor="email" 
                 className="text-[14px] text-[#05172C]"
                 style={{ fontFamily: 'Ploni ML v2 AAA' }}
@@ -89,6 +137,8 @@ export const Signup: React.FC = () => {
                 type="email"
                 id="email"
                 placeholder="israelisraeli@gmail.com"
+                value={formData.email}
+                onChange={handleChange}
                 className="input-right-placeholder w-full h-[48px] px-5 border border-[#D2D2D2] rounded-lg text-[14px] text-[#05172C] focus:outline-none focus:border-[#00BAFF]"
                 style={{ fontFamily: 'Ploni ML v2 AAA' }}
               />
@@ -107,6 +157,8 @@ export const Signup: React.FC = () => {
                 type="password"
                 id="password"
                 placeholder="************"
+                value={formData.password}
+                onChange={handleChange}
                 className="input-right-placeholder w-full h-[48px] px-5 border border-[#D2D2D2] rounded-lg text-[14px] text-[#05172C] focus:outline-none focus:border-[#00BAFF]"
                 style={{ fontFamily: 'Ploni ML v2 AAA' }}
               />

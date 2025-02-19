@@ -6,6 +6,7 @@ import { TrackingCard } from '../../components/front/tracking/TrackingCard';
 import { SavingsDisplay } from '../../components/front/userArea/SavingDisplay'
 import { FavoriteProducts } from '../../components/front/userArea/FavoriteProducts';
 import { UserLists } from '../../components/front/userArea/UserLists';
+import { PreviousOrdersPage } from '../../components/front/userArea/PreviousOrdersPage';
 
 export const UserArea = () => {
   return (
@@ -43,6 +44,11 @@ export const UserArea = () => {
           {/* My Lists Card */}
           <div className="flex flex-col justify-center p-8 w-full bg-white rounded-2xl shadow-lg max-w-[1104px] min-w-[240px] max-sm:p-4 max-sm:items-center">
             <UserLists />
+          </div>
+
+          {/* Previous Orders Card */}
+          <div className="flex flex-col justify-center p-8 w-full bg-white rounded-2xl shadow-lg max-w-[1104px] min-w-[240px] max-sm:p-4 max-sm:items-center">
+            <PreviousOrdersPage />
           </div>
         </div>
       </div>

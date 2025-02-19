@@ -3,7 +3,7 @@ import React from "react";
 import { QtyControls } from "../QtyControls";
 import { useDispatch } from "react-redux";
 import { removeItem, incrementQuantity, decrementQuantity } from "../../../store/cartSlice";
-import Heart from "../../Heart";
+import  Heart  from "../../Heart";
 import { Trash2 } from "lucide-react";
 
 interface CartItemProps {

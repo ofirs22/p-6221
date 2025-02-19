@@ -1,11 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ProgressIndicator } from '../questionaire/ProgressIndicator';
 import { Card } from '../../ui/card';
 import { RootState } from '../../../store';
 import { selectCartTotal } from '../../../store/cartSlice';
 import { DeliveryNTotal } from '../checkout/DeliveryNTotal';
 import { useNavigate } from 'react-router-dom';
+import { addOrder } from '../../../store/orderSlice';
+import { clearCart } from '../../../store/cartSlice';
+import { Order, OrderStatus } from '../../../types/orderTypes';
+import { setSavingsAmount } from '../../../store/userSlice';
 
 
 
@@ -13,18 +17,37 @@ import { useNavigate } from 'react-router-dom';
 
 const OrderConfirmation: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const onFinish = () => {
-    console.log("Finish button clicked");
-  }
-  
-  const onTrackOrder = () => {
-    console.log("Track Order button clicked");
-    navigate('/checkout/tracking');
-  }
   const user = useSelector((state: RootState) => state.user);
   const cart = useSelector((state: RootState) => state.cart);
   const totalAmount = useSelector(selectCartTotal);
+
+  const onFinish = () => {
+    // Create new order
+    const newOrder: Order = {
+      id: `ORD-${Date.now()}`, // Generate unique ID
+      date: new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' }),
+      products: cart.items.map(item => ({
+        productId: item.id,
+        quantity: item.quantity
+      })),
+      total: totalAmount.totalPrice,
+      status: 'הזמנה נוצרה' as OrderStatus
+    };
+
+    // Dispatch actions
+    dispatch(addOrder(newOrder));
+    dispatch(clearCart());
+    dispatch(setSavingsAmount(cart.totalSaving));
+
+    // Navigate to tracking
+    navigate('/checkout/tracking');
+  }
+  
+  const onTrackOrder = () => {
+    navigate('/checkout/tracking');
+  }
 
   return (
     <div className="flex flex-col w-full max-w-[1124px] mx-auto gap-[30px]">

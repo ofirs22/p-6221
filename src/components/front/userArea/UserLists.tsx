@@ -9,7 +9,7 @@ import { List } from '../../../types/listsType';
 
 export const UserLists: React.FC = () => {
   const dispatch = useDispatch();
-  const lists = useSelector((state: RootState) => state.lists);
+  const lists = useSelector((state: RootState) => state.list);
 
   const handleAddList = (newList: List) => {
     dispatch(addList(newList));

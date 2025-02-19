@@ -1,10 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectOrderStatus } from '../../../store/orderSlice';
 import { OrderStatusButton } from './OrderStatusButton';
+import { RootState } from '../../../store';
 
 export const OrderStatus: React.FC = () => {
-  const orderStatus = useSelector(selectOrderStatus);
+  // Get the most recent order (first in the list)
+  const orders = useSelector((state: RootState) => state.order.orders);
+  const latestOrder = orders[0]; // Most recent order will be at index 0
+
+  // Get the status of the latest order
+  const orderStatus = latestOrder?.status;
 
   const statuses = [
     {status: "הזמנה הושלמה", complete: false},
@@ -32,4 +37,3 @@ export const OrderStatus: React.FC = () => {
     </>
   );
 };
-

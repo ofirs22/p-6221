@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { List } from '../../../types/listsType';
-import { removeProductFromList } from '../../../store/listSlice';
+import { removeProductFromList, updateProductQuantity } from '../../../store/listSlice';
 import { RootState } from '../../../store';
 import { Product } from '../../../types/productTypes';
 import { QtyControls } from '../QtyControls';

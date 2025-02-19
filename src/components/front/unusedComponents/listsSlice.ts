@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { List } from '../types/listsType';
+import { List } from '../../../types/listsType';
 
 const initialState: List[] = [];
 

@@ -1,8 +1,8 @@
 export interface UserInfo {
     email: string | null;
-    firstName: string | null;
-    lastName: string | null;
-    phone: string | null; 
+    firstName: string;
+    lastName: string;
+    phone: string;
     token: string | null;
 }
 
@@ -32,6 +32,8 @@ export interface MainAddress {
   
   export interface UserState {
     isAuthenticated: boolean;
+    loading: boolean;
+    error: string | null;
     userInfo: UserInfo;
     shippingDetails: ShippingDetails;
     billingDetails: BillingDetails;
