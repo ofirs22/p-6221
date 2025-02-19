@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,6 +20,7 @@ import {
 
 const Header: React.FC = () => {
   const [isMiniCartOpen, setIsMiniCartOpen] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state: RootState) => state.user?.isAuthenticated);
   const userEmail = useSelector((state: RootState) => state.user?.userInfo.email);
@@ -38,6 +38,11 @@ const Header: React.FC = () => {
     navigate('/');
   };
 
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    setIsSheetOpen(false);
+  };
+
   const MenuContent = () => (
     <div className="flex flex-col h-full pt-12 bg-white">
       <div className="flex flex-col gap-6 px-4">
@@ -46,37 +51,40 @@ const Header: React.FC = () => {
             <User className="h-6 w-6" />
             <div className="text-sm">
               <p className="font-semibold">{userEmail}</p>
-              <button onClick={handleLogout} className="text-red-500 mt-2">
+              <button onClick={() => {
+                handleLogout();
+                setIsSheetOpen(false);
+              }} className="text-red-500 mt-2">
                 התנתק
               </button>
             </div>
           </div>
         ) : (
           <div className="flex flex-col gap-3 pb-6 border-b border-gray-200">
-            <Link to="/login" className="text-[#05172C] hover:text-[#00BAFF]">
+            <button onClick={() => handleNavigate('/login')} className="text-[#05172C] hover:text-[#00BAFF] text-right">
               התחבר
-            </Link>
-            <Link to="/signup" className="text-[#05172C] hover:text-[#00BAFF]">
+            </button>
+            <button onClick={() => handleNavigate('/signup')} className="text-[#05172C] hover:text-[#00BAFF] text-right">
               הרשמה
-            </Link>
+            </button>
           </div>
         )}
         
-        <Link to="/" className="text-[#05172C] hover:text-[#00BAFF] text-xl">
+        <button onClick={() => handleNavigate('/')} className="text-[#05172C] hover:text-[#00BAFF] text-xl text-right">
           בית
-        </Link>
-        <Link to="/about" className="text-[#05172C] hover:text-[#00BAFF] text-xl">
+        </button>
+        <button onClick={() => handleNavigate('/about')} className="text-[#05172C] hover:text-[#00BAFF] text-xl text-right">
           אודות
-        </Link>
-        <Link to="/shop" className="text-[#05172C] hover:text-[#00BAFF] text-xl">
+        </button>
+        <button onClick={() => handleNavigate('/shop')} className="text-[#05172C] hover:text-[#00BAFF] text-xl text-right">
           מוצרים
-        </Link>
-        <Link to="/packages" className="text-[#05172C] hover:text-[#00BAFF] text-xl">
+        </button>
+        <button onClick={() => handleNavigate('/packages')} className="text-[#05172C] hover:text-[#00BAFF] text-xl text-right">
           חבילות
-        </Link>
-        <Link to="/partners" className="text-[#05172C] hover:text-[#00BAFF] text-xl">
+        </button>
+        <button onClick={() => handleNavigate('/partners')} className="text-[#05172C] hover:text-[#00BAFF] text-xl text-right">
           ספקים
-        </Link>
+        </button>
       </div>
     </div>
   );
@@ -87,7 +95,7 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center h-20 lg:h-24">
           {/* Mobile Menu and Logo */}
           <div className="flex items-center gap-4">
-            <Sheet>
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild className="md:hidden">
                 <button className="w-[52px] h-[52px] flex items-center justify-center hover:text-[#00BAFF] transition-colors bg-white rounded-full transform hover:scale-105 shadow-lg border border-gray-100">
                   <Menu className="h-6 w-6" />
