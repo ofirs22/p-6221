@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import Heart from '../../Heart'
 import { PackageItem } from './PackageData';
 
 interface PackageCardProps {
@@ -50,7 +51,8 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageItem }) => {
         {/* Actions */}
         <div className="flex items-center gap-4 mt-4">
           <button className="flex items-center justify-center w-12 h-12 bg-white shadow-md rounded-full">
-            <FontAwesomeIcon icon={faHeart} className="text-[#05172C] text-lg" />
+            {/* <FontAwesomeIcon icon={faHeart} className="text-[#05172C] text-lg" /> */}
+            <Heart id={packageItem.id} entity='package' />
           </button>
           <button className="flex items-center justify-center px-8 py-3 border border-[#778080] rounded-full text-[#778080] text-[1.25rem] font-semibold" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
             לפרוט המארז
