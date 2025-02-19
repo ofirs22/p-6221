@@ -2,8 +2,8 @@
 import React from "react";
 import { QtyControls } from "../QtyControls";
 import { useDispatch } from "react-redux";
-import { removeItem, incrementQuantity, decrementQuantity } from "../../../store/cartSlice";
-import Heart from "../../Heart";
+import { removeItem } from "../../../store/cartSlice";
+import  Heart  from "../../Heart";
 import { Trash2 } from "lucide-react";
 
 interface CartItemProps {
@@ -24,18 +24,11 @@ export const CartItem: React.FC<CartItemProps> = ({
   quantity,
 }) => {
   const dispatch = useDispatch();
-
-  const handleIncreaseQuantity = (id: string) => {
-    dispatch(incrementQuantity(id));
-  };
-
-  const handleDecreaseQuantity = (id: string) => {
-    dispatch(decrementQuantity(id));
-  };
-
+  console.log(id,name,price,originalPrice,image,quantity)
   return (
     <article className="bg-white shadow-[0px_2px_12px_rgba(183,189,196,0.504)] flex w-full items-center gap-5 justify-between mt-[30px] px-4 py-4 rounded-xl max-md:max-w-full max-md:flex-wrap">
       <div className="flex items-center">
+        
         <button 
           onClick={() => dispatch(removeItem(id))}
           className="ml-4 text-red-500 hover:text-red-700"
@@ -45,13 +38,7 @@ export const CartItem: React.FC<CartItemProps> = ({
         <button className="ml-4 text-gray-500 hover:text-gray-700">
           <Heart id={id} entity='product' size={'small'} />
         </button>
-        <QtyControls 
-          id={id} 
-          quantity={quantity} 
-          size="small"
-          onIncrease={handleIncreaseQuantity}
-          onDecrease={handleDecreaseQuantity}
-        />
+        <QtyControls id={id} quantity={quantity} />
       </div>
       <div className="flex items-center ml-auto">
         <div className="ml-4">
