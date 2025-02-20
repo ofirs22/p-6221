@@ -141,14 +141,14 @@ const Header: React.FC = () => {
           </nav>
 
           {/* Search Bar */}
-          <div className="hidden xl:flex items-center justify-center relative flex-shrink-0 ml-4">
+          <div className="hidden xl:flex items-center justify-center relative flex-shrink-0 ml-4 mr-4">
             <input
               type="text"
               placeholder="חפש מוצר"
               className="w-[280px] 2xl:w-[408px] h-[52px] px-4 py-2 border text-right pr-[112px] border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
             />
             <button 
-              className="absolute right-0 flex items-center justify-center w-[100px] h-[50px] bg-[#00BAFF] rounded-r-full transition-transform hover:scale-105"
+              className="absolute right-0 flex items-center justify-center w-[60px] h-[50px] bg-[#00BAFF] rounded-r-full transition-transform hover:scale-105"
               aria-label="Search"
             >
               <Search className="w-5 h-5 text-white" />

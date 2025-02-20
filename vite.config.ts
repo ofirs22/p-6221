@@ -11,6 +11,11 @@ export default defineConfig({
     react(),
     process.env.NODE_ENV === 'development' && componentTagger(),
   ].filter(Boolean),
+  resolve: {
+    alias: {
+      '@fonts': '/src/assets/fonts',
+    },
+  },
   server: {
     allowedHosts: ["f41491ab-9b0f-49b3-835f-87e6cb01de35.lovableproject.com"],
     host: "::",
