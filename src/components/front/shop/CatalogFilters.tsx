@@ -4,6 +4,7 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { selectCategories } from '../../../store/categorySlice';
 import { selectTags } from '../../../store/tagSlice';
+import { PriceRangeSlider } from "./PriceRangeSlider";
 
 interface CatalogFiltersProps {
   onSubmit?: () => void;
@@ -58,47 +59,54 @@ export const CatalogFilters: React.FC<CatalogFiltersProps> = ({ onSubmit }) => {
       </div>
 
       <div className="p-6 flex flex-col gap-8 h-[1200px] overflow-y-auto">
-        {/* Categories */}
-        <div>
-          <div className=" pb-4 mb-4 sticky top-0 bg-white z-10">
-            <h3
-              className="text-[22px] leading-[30px] text-[#05172C]"
-              style={{ fontFamily: "Ploni DL 1.1 AAA" }}
-            >
-              :קטגוריות
-            </h3>
-            <div className="absolute bottom-0 right-0 w-[100px] h-[3px] bg-[#FEC740]"></div>
-          </div>
-          <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => handleCategoryToggle(category.id)}
-                className={`flex items-center justify-between w-full p-2 rounded-lg ${
-                  selectedCategories.includes(category.id) ? 'bg-[#00BAFF] text-white' : 'hover:bg-gray-50'
-                }`}
-              >
-                <div className="w-[27px] h-[25px] relative">
-                  <img
-                    className="w-[23px] h-[28px] left-0 top-0 absolute"
-                    src={category.icon}
-                    alt={category.name}
-                  />
-                </div>
-                <span
-                  className="text-[16px] leading-[23px] text-[#264653]"
-                  style={{ fontFamily: "Ploni DL 1.1 AAA" }}
-                >
-                  {category.name}
-                </span>
-              </button>
-            ))}
-          </div>
+{/* Categories */}
+<div>
+  <div className="pb-4 mb-4 sticky top-0 bg-white z-10">
+    <h3
+      className="text-[22px] leading-[30px] text-[#05172C] text-right"
+      style={{ fontFamily: "Ploni DL 1.1 AAA" }}
+    >
+      :קטגוריות
+    </h3>
+    <div className="absolute bottom-0 right-0 w-[100px] h-[3px] bg-[#FEC740]"></div>
+  </div>
+
+  {/* Main Grid: Two Columns */}
+  <div className="grid grid-cols-2 gap-6 max-h-[500px] overflow-y-auto pr-2">
+    {categories.map((category) => (
+      <button
+        key={category.id}
+        onClick={() => handleCategoryToggle(category.id)}
+        className={`grid grid-cols-2 items-center p-2 rounded-lg shadow-xl ${
+          selectedCategories.includes(category.id) ? 'bg-[#00BAFF] text-white' : 'hover:bg-gray-50'
+        }`}
+      >
+        {/* Image Column */}
+        <span
+          className="text-[16px] leading-[23px] text-[#264653] text-right"
+          style={{ fontFamily: "Ploni DL 1.1 AAA" }}
+        >
+          {category.name}
+        </span>
+        <div className="flex justify-end">
+                  {/* Text Column */}
+
+          <img
+            className="w-[23px] h-[28px] mr-3"  // Added margin between image and text
+            src={category.icon}
+            alt={category.name}
+          />
         </div>
+
+
+      </button>
+    ))}
+  </div>
+</div>
 
         {/* Price Range section remains the same */}
         <div>
-          {/* ... existing price range code ... */}
+          <PriceRangeSlider min={0} max={30} />
         </div>
 
         {/* Product Tags */}
