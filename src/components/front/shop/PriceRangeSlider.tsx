@@ -27,11 +27,11 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({ min, max, on
           step={1}
           value={values}
           onValueChange={handleValueChange}
-          className="w-full"
+          className="w-full relative z-0"
         />
       </div>
       
-      <div className="text-base text-right w-full mt-4 text-gray-700">
+      <div className="text-base text-right w-full mt-4 text-[#00BAFF] font-semibold">
         מחיר: ₪{values[0]} - ₪{values[1]}
       </div>
     </div>
