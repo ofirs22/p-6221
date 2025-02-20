@@ -1,5 +1,5 @@
 import React from 'react';
-import PackageHero from '../../components/front/packageFront/PackageHero';
+import {PackageHero} from '../../components/front/packageFront/PackageHero';
 import PackageList from '../../components/front/packageFront/PackageList';
 import ProductShowcase from '../../components/front/packageFront/ProductShowcase';
 
