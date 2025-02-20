@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const PromotionalBanner: React.FC<{ className?: string }> = ({ className }) => {
+  const navigate = useNavigate();
   return (
     <div className={`relative w-full h-[333px] overflow-hidden ${className}`}>
       {/* Background Image */}
@@ -43,6 +45,7 @@ export const PromotionalBanner: React.FC<{ className?: string }> = ({ className 
           <button
             className="w-[292px] h-[52px] border border-[#05172C] rounded-full text-[16px] leading-[23px] text-[#05172C] transition-colors hover:bg-[#05172C] hover:text-white"
             style={{ fontFamily: 'Ploni DL 1.1 AAA' }}
+            onClick={() => navigate('/shop')}
           >
             לכל המוצרים
           </button>

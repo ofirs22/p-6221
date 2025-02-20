@@ -1,6 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const Banners: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <section className="w-full py-8 sm:py-12 md:py-16" dir="rtl">
       <div className="container mx-auto px-4">
@@ -33,6 +37,9 @@ const Banners: React.FC = () => {
                 <button 
                   className="w-fit mt-2 sm:mt-4 px-6 sm:px-[30px] py-3 sm:py-5 bg-[#00BAFF] text-white rounded-lg"
                   style={{ fontFamily: 'Ploni DL 1.1 AAA' }}
+                  onClick={() => {
+                    navigate('/shop');
+                  }}
                 >
                   <span className="text-base sm:text-xl font-semibold">
                     לכל המוצרים

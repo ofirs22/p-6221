@@ -21,13 +21,13 @@ export const ResultsAndSorting: React.FC<ResultsAndSortingProps> = ({
       <div className="text-right text-[#264653] text-base font-normal font-['Ploni DL 1.1 AAA']">
         מציג - {startItem} עד {endItem} מתוך {totalItems}
       </div>
-      <div className={`relative flex items-center ${isMobile ? 'w-full' : 'pl-36'}`}>
+      {/* <div className={`relative flex items-center ${isMobile ? 'w-full' : 'pl-36'}`}>
         <div className="w-full md:w-[218.48px] h-[52px] rounded-3xl border border-[#d2d2d2] flex items-center justify-center">
           <span className="text-[#264653] text-base font-bold font-['PT Sans']">
             לעגלה
           </span>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

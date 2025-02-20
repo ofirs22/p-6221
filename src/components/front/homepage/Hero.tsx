@@ -58,6 +58,7 @@ const Hero: React.FC = () => {
                 <button 
                   className="px-8 py-3 border border-[#05172C] text-[#05172C] rounded-full"
                   style={{ fontFamily: 'Ploni ML v2 AAA' }}
+                  onClick = {() => navigate('/shop')}
                 >
                   לכל המוצרים
                 </button>
