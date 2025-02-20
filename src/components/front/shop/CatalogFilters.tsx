@@ -79,19 +79,20 @@ export const CatalogFilters: React.FC<CatalogFiltersProps> = ({ onSubmit }) => {
                   selectedCategories.includes(category.id) ? 'bg-[#00BAFF] text-white' : 'hover:bg-gray-50'
                 }`}
               >
-                <span
-                  className="text-[16px] leading-[23px] text-right flex-grow truncate ml-6"
-                  style={{ fontFamily: "Ploni DL 1.1 AAA" }}
-                >
-                  {category.name}
-                </span>
-                <div className="flex-shrink-0">
+                
+                <div className="flex-shrink-0 ml-6">
                   <img
                     className="w-[23px] h-[28px] object-contain"
                     src={category.icon}
                     alt={category.name}
                   />
                 </div>
+                <span
+                  className="text-[16px] leading-[23px] text-right flex-grow truncate "
+                  style={{ fontFamily: "Ploni DL 1.1 AAA" }}
+                >
+                  {category.name}
+                </span>
               </button>
             ))}
           </div>
