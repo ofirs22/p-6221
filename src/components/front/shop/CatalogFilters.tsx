@@ -70,7 +70,7 @@ export const CatalogFilters: React.FC<CatalogFiltersProps> = ({ onSubmit }) => {
             <div className="absolute bottom-0 right-0 w-[100px] h-[3px] bg-[#FEC740]"></div>
           </div>
 
-          <div className="flex flex-col gap-4 max-h-[500px] overflow-y-auto pr-2">
+          <div className="grid grid-cols-2 md:grid-cols-1 gap-4 max-h-[500px] overflow-y-auto pr-2">
             {categories.map((category) => (
               <button
                 key={category.id}
@@ -80,7 +80,7 @@ export const CatalogFilters: React.FC<CatalogFiltersProps> = ({ onSubmit }) => {
                 }`}
               >
                 <span
-                  className="text-[16px] leading-[23px] text-right flex-grow truncate ml-4"
+                  className="text-[16px] leading-[23px] text-right flex-grow truncate ml-6"
                   style={{ fontFamily: "Ploni DL 1.1 AAA" }}
                 >
                   {category.name}
