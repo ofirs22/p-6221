@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useSelector } from 'react-redux';
 import { selectCategories } from '../../../store/categorySlice';
@@ -14,7 +13,6 @@ export const CatalogFilters: React.FC<CatalogFiltersProps> = ({ onSubmit }) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  // Get categories and tags from Redux store
   const categories = useSelector(selectCategories);
   const tags = useSelector(selectTags);
 
@@ -51,7 +49,6 @@ export const CatalogFilters: React.FC<CatalogFiltersProps> = ({ onSubmit }) => {
 
   return (
     <div className="w-full md:w-[345px] bg-white rounded-lg shadow-sm">
-      {/* Header */}
       <div className="bg-[#00BAFF] text-white p-6 rounded-t-lg">
         <h2
           className="text-[24px] leading-[27px] font-semibold"
@@ -62,7 +59,6 @@ export const CatalogFilters: React.FC<CatalogFiltersProps> = ({ onSubmit }) => {
       </div>
 
       <div className="p-6 flex flex-col gap-8 h-[1200px] overflow-y-auto">
-        {/* Categories */}
         <div>
           <div className="pb-4 mb-4 sticky top-0 bg-white z-10">
             <h3
@@ -74,27 +70,24 @@ export const CatalogFilters: React.FC<CatalogFiltersProps> = ({ onSubmit }) => {
             <div className="absolute bottom-0 right-0 w-[100px] h-[3px] bg-[#FEC740]"></div>
           </div>
 
-          {/* Main Grid: Two Columns */}
-          <div className="grid grid-cols-2 gap-6 max-h-[500px] overflow-y-auto pr-2">
+          <div className="flex flex-col gap-4 max-h-[500px] overflow-y-auto pr-2">
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => handleCategoryToggle(category.id)}
-                className={`grid grid-cols-2 items-center p-2 rounded-lg shadow-lg hover:shadow-xl transition-shadow ${
+                className={`flex items-center justify-between p-3 rounded-lg shadow-lg hover:shadow-xl transition-shadow ${
                   selectedCategories.includes(category.id) ? 'bg-[#00BAFF] text-white' : 'hover:bg-gray-50'
                 }`}
               >
-                {/* Text Column */}
                 <span
-                  className="text-[16px] leading-[23px] text-right truncate px-2"
+                  className="text-[16px] leading-[23px] text-right flex-grow truncate ml-4"
                   style={{ fontFamily: "Ploni DL 1.1 AAA" }}
                 >
                   {category.name}
                 </span>
-                {/* Image Column */}
-                <div className="flex justify-end">
+                <div className="flex-shrink-0">
                   <img
-                    className="w-[23px] h-[28px] mr-3 object-contain"
+                    className="w-[23px] h-[28px] object-contain"
                     src={category.icon}
                     alt={category.name}
                   />
@@ -104,7 +97,6 @@ export const CatalogFilters: React.FC<CatalogFiltersProps> = ({ onSubmit }) => {
           </div>
         </div>
 
-        {/* Price Range section */}
         <div>
           <div className="pb-4 mb-4 sticky top-0 bg-white z-10">
             <h3
@@ -122,7 +114,6 @@ export const CatalogFilters: React.FC<CatalogFiltersProps> = ({ onSubmit }) => {
           />
         </div>
 
-        {/* Product Tags */}
         <div>
           <div className="pb-4 mb-4 sticky top-0 bg-white z-10">
             <h3
@@ -149,7 +140,6 @@ export const CatalogFilters: React.FC<CatalogFiltersProps> = ({ onSubmit }) => {
           </div>
         </div>
 
-        {/* Action Buttons */}
         <div className="flex flex-col gap-4 sticky bottom-0 bg-white pt-4">
           <button
             onClick={handleSubmit}
