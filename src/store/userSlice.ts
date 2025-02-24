@@ -83,6 +83,7 @@ const userSlice = createSlice({
       state.userInfo = { ...state.userInfo, ...action.payload };
     },
     updateShippingDetails: (state, action: PayloadAction<Partial<UserState['shippingDetails']>>) => {
+      console.log(action.payload)
       state.shippingDetails = { ...state.shippingDetails, ...action.payload };
     },
     updateAddress: (state, action: PayloadAction<Partial<BillingDetails>>) => {

@@ -11,6 +11,8 @@ export const ShippingDetails: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target; 
+    console.log( value)
+    dispatch(updateShippingDetails({ [name]: value }));
     
   };
 
@@ -47,7 +49,7 @@ export const ShippingDetails: React.FC = () => {
         </label>
         <input
           type="text"
-          name='address'
+          name='street'
           className="w-full h-12 px-5 border border-[#D2D2D2] rounded-lg text-[14px] text-[#05172C] focus:outline-none focus:border-[#00BAFF]"
           style={{ fontFamily: 'Ploni ML v2 AAA' }}
           onChange={handleChange}

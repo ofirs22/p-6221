@@ -22,8 +22,8 @@ export const CheckoutForm: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-        if((name === 'address' || name === 'city' || name === 'postalCode' || name === 'houseNumber')){
-          console.log("shipping")
+        if((name === 'street' || name === 'city' || name === 'postalCode' || name === 'houseNumber')){
+          console.log(name, value)
           dispatch(updateShippingDetails({ [name]: value }));
         } else if(name === 'phone' || name === 'phoneAreaCode'){
           setPhoneNumber(value);
@@ -175,7 +175,7 @@ export const CheckoutForm: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <input
                     type="text"
-                    name="address"
+                    name="street"
                     placeholder="כתובת"
                     className="input-right-placeholder w-full h-12 px-5 border border-[#D2D2D2] rounded-lg text-[14px] text-[#05172C] focus:outline-none focus:border-[#00BAFF] ml-auto"
                     style={{ fontFamily: 'Ploni ML v2 AAA' }}

@@ -10,12 +10,14 @@ import { addOrder } from '../../../store/orderSlice';
 import { clearCart } from '../../../store/cartSlice';
 import { Order, OrderStatus } from '../../../types/orderTypes';
 import { setSavingsAmount } from '../../../store/userSlice';
+import { selectUserDetails } from '../../../store/userSlice';
 
 const OrderConfirmation: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const user = useSelector((state: RootState) => state.user);
+  const user = useSelector(selectUserDetails);
+  console.log(user)
   const cart = useSelector((state: RootState) => state.cart);
   const totalAmount = useSelector(selectCartTotal);
 
@@ -83,31 +85,31 @@ const OrderConfirmation: React.FC = () => {
           {/* Receipt Information */}
           <Card className="p-6">
             <div className="flex flex-col">
-              <div className="flex flex-col gap-[11px] mb-4">
+              <div className="flex flex-col items-center gap-[11px] mb-4">
                 <h2 className="text-[24px] leading-[27px] font-semibold text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
                   מידע וקבלה
                 </h2>
-                <div className="h-[3px] w-[114px] bg-[#00BAFF] ml-auto" />
+                <div className="h-[3px] w-[114px] bg-[#00BAFF] mx-auto" />
               </div>
 
-              <div className="bg-white rounded-xl shadow-sm p-6">
+              <div className="bg-white rounded-xl shadow-sm p-6 ">
                 {/* Shipping Address Section */}
-                <div className="mb-6">
-                  <h3 className="text-right font-semibold mb-2">:כתובת למשלוח</h3>
-                  <div className="text-gray-600 text-right space-y-1">
-                    <p>{`${user.shippingDetails.street} ${user.shippingDetails.houseNumber}, נס ציונה`}</p>
-                    <p>{`דירה מס׳ ${user.shippingDetails.apartment}`}</p>
+                <div className="mb-6 flex flex-col items-center">
+                  <h3 className="text-center font-semibold mb-2">:כתובת למשלוח</h3>
+                  <div className="text-gray-600 text-center space-y-1">
+                    <p>{`${user.shippingDetails.street} `}</p>
+                    <p>{`${user.shippingDetails.houseNumber} דירה מס׳ `}</p>
                     <p>{`מיקוד ${user.shippingDetails.postalCode}`}</p>
                   </div>
                 </div>
-
-                {/* Personal Details Section */}
-                <div>
-                  <h3 className="text-right font-semibold mb-2">:פרטים אישיים</h3>
-                  <div className="text-gray-600 text-right space-y-1">
+                <hr />
+                  {/* Personal Details Section */}
+                <div className="mb-6 flex flex-col items-center mt-5">
+                  <h3 className="text-center font-semibold mb-2">:פרטים אישיים</h3>
+                  <div className="text-gray-600 text-center space-y-1">
                     <p>{`${user.userInfo.firstName} ${user.userInfo.lastName}`}</p>
-                    <p dir="ltr" className="text-right">{user.userInfo.phone}</p>
-                    <p dir="ltr" className="text-right">{user.userInfo.email}</p>
+                    <p dir="ltr" className="text-center">{user.userInfo.phone}</p>
+                    <p dir="ltr" className="text-center">{user.userInfo.email}</p>
                   </div>
                 </div>
               </div>
@@ -128,40 +130,6 @@ const OrderConfirmation: React.FC = () => {
                 >
                   שלח לי קבלה
                 </button>
-              </div>
-            </div>
-          </Card>
-
-          {/* Order Summary */}
-          <Card className="p-10">
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-[11px]">
-                <h2 className="text-[24px] leading-[27px] font-semibold text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                  מידע וקבלה
-                </h2>
-                <div className="h-[3px] w-[114px] bg-[#00BAFF] ml-auto" />
-              </div>
-              <div className="h-[1px] w-full bg-[#D2D2D2]" />
-              {/* Render Cart Items */}
-              <div className="flex flex-col gap-4">
-                {cart.items.map((item) => (
-                  <div key={item.id} className="bg-white shadow-[0px_2px_12px_rgba(183,189,196,0.504)] flex w-full items-center gap-5 justify-between mt-[7px] px-4 py-4 rounded-xl max-md:max-w-full max-md:flex-wrap">
-                    <div className="flex items-center">
-                      <button className="w-[52px] h-[52px] bg-white rounded-full shadow-lg">{item.quantity}</button>
-                    </div>
-                    <div className="flex items-center ml-auto">
-                      <div className="ml-4">
-                        <h4 className="text-lg font-semibold">{item.name}</h4>
-                        <div className="text-gray-500">
-                          {item.originalPrice && <span className="line-through">${item.originalPrice.toFixed(2)}</span>}
-                          <span className="ml-2 text-red-500">${item.price.toFixed(2)}</span>
-                        </div>
-                      </div>
-                      <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded ml-4" />
-                    </div>
-                  </div>
-                ))}
-                <DeliveryNTotal totalPrice={totalAmount.totalPrice} />
               </div>
             </div>
           </Card>

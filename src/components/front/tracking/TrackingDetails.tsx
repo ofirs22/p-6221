@@ -3,14 +3,14 @@ import React from 'react';
 interface TrackingDetailsProps {
   orderNumber: string;
   customerName: string;
-  address: string;
+  street: string;
   phone: string;
 }
 
 export const TrackingDetails: React.FC<TrackingDetailsProps> = ({
   orderNumber,
   customerName,
-  address,
+  street,
   phone
 }) => {
   return (
@@ -36,7 +36,7 @@ export const TrackingDetails: React.FC<TrackingDetailsProps> = ({
           כתובת:
         </h3>
         <p className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-          {address}
+          {street}
         </p>
       </div>
       <div className="flex flex-col gap-2">

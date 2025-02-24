@@ -6,7 +6,7 @@ export interface CourierInfo {
   export interface ShipmentInfo {
     orderNumber: string;
     name: string;
-    address: string;
+    street: string;
   }
   
   export interface CourierDetailsProps {
