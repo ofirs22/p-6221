@@ -10,7 +10,7 @@ const initialState: CourierDetailsProps = {
   shipment: {
     orderNumber: '000001173',
     name: 'ישראל ישראלי',
-    address: 'נס-ציונה: המזמרה 4 , 33',
+    street: 'נס-ציונה: המזמרה 4 , 33',
   },
 };
 
