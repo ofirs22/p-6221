@@ -4,7 +4,6 @@ import { ProgressIndicator } from '../questionaire/ProgressIndicator';
 import { Card } from '../../ui/card';
 import { RootState } from '../../../store';
 import { selectCartTotal } from '../../../store/cartSlice';
-import { DeliveryNTotal } from '../checkout/DeliveryNTotal';
 import { useNavigate } from 'react-router-dom';
 import { addOrder } from '../../../store/orderSlice';
 import { clearCart } from '../../../store/cartSlice';
@@ -17,7 +16,6 @@ const OrderConfirmation: React.FC = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(selectUserDetails);
-  console.log(user)
   const cart = useSelector((state: RootState) => state.cart);
   const totalAmount = useSelector(selectCartTotal);
 
@@ -48,87 +46,85 @@ const OrderConfirmation: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col w-full max-w-[1124px] mx-auto gap-[30px]">
+    <div className="flex flex-col w-full max-w-[1124px] mx-auto gap-[30px] px-4 lg:px-0">
       {/* Progress Indicator */}
       <div className="flex justify-center">
         <ProgressIndicator currentStep={3} totalSteps={3} />
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col gap-[30px] text-right">
+      <div className="flex flex-col gap-[30px]">
         {/* Success Message */}
-        <Card className="p-10">
+        <Card className="p-6 lg:p-10">
           <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-[11px]">
+            <div className="flex flex-col items-end gap-[11px]">
               <h2 className="text-[24px] leading-[27px] font-semibold text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
                 תודה על ההזמנה שלך!
               </h2>
-              <div className="h-[3px] w-[214px] bg-[#00BAFF] ml-auto" />
+              <div className="h-[3px] w-[214px] bg-[#00BAFF]" />
             </div>
-            <div className="h-[1px] w-full bg-[#D2D2D2]" />
-
+            
             {/* Savings Banner */}
-            <div className="p-5 bg-[#FC4B4E] rounded-lg shadow-md">
-              <div className="flex items-start justify-between px-5">
-                <div className="flex items-baseline gap-6 w-full">
-                  <h2 className="text-[68px] leading-[70px] font-semibold text-white text-center w-full" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                    היום חסכת ₪{cart.totalSaving.toFixed(2)}
-                  </h2>
-                </div>
+            <div className="mt-4 p-5 bg-[#FC4B4E] rounded-lg">
+              <div className="flex justify-center items-center">
+                <h2 className="text-[40px] lg:text-[68px] leading-[1] font-semibold text-white text-center" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
+                  היום חסכת ₪{cart.totalSaving.toFixed(2)}!
+                </h2>
               </div>
             </div>
           </div>
         </Card>
 
-        {/* Order Details */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
-          {/* Receipt Information */}
-          <Card className="p-6">
+        {/* Information and Receipt Section */}
+        <div className="flex flex-col lg:flex-row gap-[30px]">
+          <Card className="flex-1 p-6 lg:p-10">
             <div className="flex flex-col">
-              <div className="flex flex-col items-center gap-[11px] mb-4">
+              <div className="flex flex-col items-end gap-[11px] mb-6">
                 <h2 className="text-[24px] leading-[27px] font-semibold text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
                   מידע וקבלה
                 </h2>
-                <div className="h-[3px] w-[114px] bg-[#00BAFF] mx-auto" />
+                <div className="h-[3px] w-[114px] bg-[#00BAFF]" />
               </div>
 
-              <div className="bg-white rounded-xl shadow-sm p-6 ">
-                {/* Shipping Address Section */}
-                <div className="mb-6 flex flex-col items-center">
-                  <h3 className="text-center font-semibold mb-2">:כתובת למשלוח</h3>
-                  <div className="text-gray-600 text-center space-y-1">
-                    <p>{`${user.shippingDetails.street} `}</p>
-                    <p>{`${user.shippingDetails.houseNumber} דירה מס׳ `}</p>
-                    <p>{`מיקוד ${user.shippingDetails.postalCode}`}</p>
+              <div className="bg-white rounded-xl p-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Personal Details */}
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-right">:פרטים אישיים</h3>
+                    <div className="text-[#666666] text-right space-y-1">
+                      <p>{user.userInfo.firstName} {user.userInfo.lastName}</p>
+                      <p dir="ltr" className="text-right">{user.userInfo.phone}</p>
+                      <p dir="ltr" className="text-right">{user.userInfo.email}</p>
+                    </div>
                   </div>
-                </div>
-                <hr />
-                  {/* Personal Details Section */}
-                <div className="mb-6 flex flex-col items-center mt-5">
-                  <h3 className="text-center font-semibold mb-2">:פרטים אישיים</h3>
-                  <div className="text-gray-600 text-center space-y-1">
-                    <p>{`${user.userInfo.firstName} ${user.userInfo.lastName}`}</p>
-                    <p dir="ltr" className="text-center">{user.userInfo.phone}</p>
-                    <p dir="ltr" className="text-center">{user.userInfo.email}</p>
+
+                  {/* Shipping Address */}
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-right">:כתובת למשלוח</h3>
+                    <div className="text-[#666666] text-right space-y-1">
+                      <p>{`${user.shippingDetails.street} ${user.shippingDetails.houseNumber}, נס ציונה`}</p>
+                      <p>{`דירה מס׳ ${user.shippingDetails.apartment}`}</p>
+                      <p>{`מיקוד ${user.shippingDetails.postalCode}`}</p>
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-col gap-3 mt-6">
-                <button
-                  onClick={onTrackOrder}
-                  className="w-full h-[52px] bg-[#00BAFF] text-white rounded-full font-semibold text-[20px] leading-[29px]"
-                  style={{ fontFamily: 'Ploni ML v2 AAA' }}
-                >
-                  עקוב אחרי הזמנה
-                </button>
+              <div className="flex flex-col lg:flex-row gap-3 mt-6">
                 <button
                   onClick={onFinish}
-                  className="w-full h-[52px] border-2 border-[#05172C] text-[#05172C] rounded-full font-semibold text-[20px] leading-[29px]"
+                  className="flex-1 h-[52px] border-2 border-[#05172C] text-[#05172C] rounded-full font-semibold text-[20px] leading-[29px] hover:bg-gray-50"
                   style={{ fontFamily: 'Ploni ML v2 AAA' }}
                 >
                   שלח לי קבלה
+                </button>
+                <button
+                  onClick={onTrackOrder}
+                  className="flex-1 h-[52px] bg-[#00BAFF] text-white rounded-full font-semibold text-[20px] leading-[29px] hover:bg-[#00a8e6]"
+                  style={{ fontFamily: 'Ploni ML v2 AAA' }}
+                >
+                  עקוב אחרי הזמנה
                 </button>
               </div>
             </div>
