@@ -11,10 +11,6 @@ import { clearCart } from '../../../store/cartSlice';
 import { Order, OrderStatus } from '../../../types/orderTypes';
 import { setSavingsAmount } from '../../../store/userSlice';
 
-
-
-
-
 const OrderConfirmation: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -85,6 +81,58 @@ const OrderConfirmation: React.FC = () => {
         {/* Order Details */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
           {/* Receipt Information */}
+          <Card className="p-6">
+            <div className="flex flex-col">
+              <div className="flex flex-col gap-[11px] mb-4">
+                <h2 className="text-[24px] leading-[27px] font-semibold text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
+                  מידע וקבלה
+                </h2>
+                <div className="h-[3px] w-[114px] bg-[#00BAFF] ml-auto" />
+              </div>
+
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                {/* Shipping Address Section */}
+                <div className="mb-6">
+                  <h3 className="text-right font-semibold mb-2">:כתובת למשלוח</h3>
+                  <div className="text-gray-600 text-right space-y-1">
+                    <p>{`${user.shippingDetails.street} ${user.shippingDetails.houseNumber}, נס ציונה`}</p>
+                    <p>{`דירה מס׳ ${user.shippingDetails.apartment}`}</p>
+                    <p>{`מיקוד ${user.shippingDetails.postalCode}`}</p>
+                  </div>
+                </div>
+
+                {/* Personal Details Section */}
+                <div>
+                  <h3 className="text-right font-semibold mb-2">:פרטים אישיים</h3>
+                  <div className="text-gray-600 text-right space-y-1">
+                    <p>{`${user.userInfo.firstName} ${user.userInfo.lastName}`}</p>
+                    <p dir="ltr" className="text-right">{user.userInfo.phone}</p>
+                    <p dir="ltr" className="text-right">{user.userInfo.email}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col gap-3 mt-6">
+                <button
+                  onClick={onTrackOrder}
+                  className="w-full h-[52px] bg-[#00BAFF] text-white rounded-full font-semibold text-[20px] leading-[29px]"
+                  style={{ fontFamily: 'Ploni ML v2 AAA' }}
+                >
+                  עקוב אחרי הזמנה
+                </button>
+                <button
+                  onClick={onFinish}
+                  className="w-full h-[52px] border-2 border-[#05172C] text-[#05172C] rounded-full font-semibold text-[20px] leading-[29px]"
+                  style={{ fontFamily: 'Ploni ML v2 AAA' }}
+                >
+                  שלח לי קבלה
+                </button>
+              </div>
+            </div>
+          </Card>
+
+          {/* Order Summary */}
           <Card className="p-10">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-[11px]">
@@ -94,129 +142,29 @@ const OrderConfirmation: React.FC = () => {
                 <div className="h-[3px] w-[114px] bg-[#00BAFF] ml-auto" />
               </div>
               <div className="h-[1px] w-full bg-[#D2D2D2]" />
-
-              <div className="p-5 bg-white shadow-md rounded-lg">
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      שם פרטי:
-                    </h3>
-                    <p className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      {user.userInfo.firstName}
-                    </p>
+              {/* Render Cart Items */}
+              <div className="flex flex-col gap-4">
+                {cart.items.map((item) => (
+                  <div key={item.id} className="bg-white shadow-[0px_2px_12px_rgba(183,189,196,0.504)] flex w-full items-center gap-5 justify-between mt-[7px] px-4 py-4 rounded-xl max-md:max-w-full max-md:flex-wrap">
+                    <div className="flex items-center">
+                      <button className="w-[52px] h-[52px] bg-white rounded-full shadow-lg">{item.quantity}</button>
+                    </div>
+                    <div className="flex items-center ml-auto">
+                      <div className="ml-4">
+                        <h4 className="text-lg font-semibold">{item.name}</h4>
+                        <div className="text-gray-500">
+                          {item.originalPrice && <span className="line-through">${item.originalPrice.toFixed(2)}</span>}
+                          <span className="ml-2 text-red-500">${item.price.toFixed(2)}</span>
+                        </div>
+                      </div>
+                      <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded ml-4" />
+                    </div>
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      שם משפחה:
-                    </h3>
-                    <p className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      {user.userInfo.lastName}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      מספר טלפון:
-                    </h3>
-                    <p className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      {user.userInfo.phone}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      עיר:
-                    </h3>
-                    <p className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      {user.shippingDetails.city}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      רחוב ומספר:
-                    </h3>
-                    <p className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      {user.shippingDetails.street}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      מספר בית/דירה:
-                    </h3>
-                    <p className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      {user.shippingDetails.houseNumber}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      קומה:
-                    </h3>
-                    <p className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      {user.shippingDetails.apartment}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      מיקוד:
-                    </h3>
-                    <p className="text-[14px] leading-[20.57px] text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                      {user.shippingDetails.postalCode}
-                    </p>
-                  </div>
-                </div>
+                ))}
+                <DeliveryNTotal totalPrice={totalAmount.totalPrice} />
               </div>
             </div>
           </Card>
-
-          {/* Order Summary */}
-          <Card className="p-10">
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-[11px]">
-              <h2 className="text-[24px] leading-[27px] font-semibold text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
-                מידע וקבלה
-              </h2>
-              <div className="h-[3px] w-[114px] bg-[#00BAFF] ml-auto" />
-            </div>
-            <div className="h-[1px] w-full bg-[#D2D2D2]" />
-            {/* Render Cart Items */}
-            <div className="flex flex-col gap-4">
-              {cart.items.map((item) => (
-                <div key={item.id} className="bg-white shadow-[0px_2px_12px_rgba(183,189,196,0.504)] flex w-full items-center gap-5 justify-between mt-[7px] px-4 py-4 rounded-xl max-md:max-w-full max-md:flex-wrap">
-                  <div className="flex items-center">
-                    <button className="w-[52px] h-[52px] bg-white rounded-full shadow-lg">{item.quantity}</button>
-                  </div>
-                  <div className="flex items-center ml-auto">
-                    <div className="ml-4">
-                      <h4 className="text-lg font-semibold">{item.name}</h4>
-                      <div className="text-gray-500">
-                        {item.originalPrice && <span className="line-through">${item.originalPrice.toFixed(2)}</span>}
-                        <span className="ml-2 text-red-500">${item.price.toFixed(2)}</span>
-                      </div>
-                    </div>
-                    <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded ml-4" />
-                  </div>
-                </div>
-              ))}
-              <DeliveryNTotal totalPrice={totalAmount.totalPrice} />
-            </div>
-          </div>
-        </Card>
-        </div>
-
-        {/* Finish and Track Order Buttons */}
-        <div className="flex justify-between gap-4">
-          <button
-            onClick={onFinish}
-            className="w-full h-[52px] bg-[#00BAFF] text-white rounded-full font-semibold text-[20px] leading-[29px]"
-            style={{ fontFamily: 'Ploni ML v2 AAA' }}
-          >
-            סיום
-          </button>
-          <button
-            onClick={onTrackOrder}
-            className="w-full h-[52px] bg-[#00BAFF] text-white rounded-full font-semibold text-[20px] leading-[29px]"
-            style={{ fontFamily: 'Ploni ML v2 AAA' }}
-          >
-            מעקב הזמנה
-          </button>
         </div>
       </div>
     </div>
