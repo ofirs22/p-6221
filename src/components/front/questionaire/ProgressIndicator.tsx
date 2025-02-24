@@ -14,7 +14,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSte
       
       {/* Active Progress Line */}
       <div 
-        className="absolute top-1/2 left-0 h-[10px] bg-[#00BAFF] -translate-y-1/2 rounded-full transition-all duration-300"
+        className="absolute top-1/2 left-0 h-[10px] bg-[#087094] -translate-y-1/2 rounded-full transition-all duration-300"
         style={{ 
           width: `${((currentStep - 1) / (totalSteps - 1)) * 302}px`,
         }}
