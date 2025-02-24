@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ProgressIndicator } from '../questionaire/ProgressIndicator';
@@ -20,6 +21,7 @@ const OrderConfirmation: React.FC = () => {
   const cart = useSelector((state: RootState) => state.cart);
   const totalAmount = useSelector(selectCartTotal);
   const isMobile = useMobile();
+
   const onFinish = () => {
     // Create new order
     const newOrder: Order = {
@@ -77,20 +79,21 @@ const OrderConfirmation: React.FC = () => {
         </Card>
 
         {/* Information and Receipt Section */}
-        <div className="flex flex-col lg:flex-row gap-[30px] bg-white rounded-lg mb-10 shadow-xl mx-auto w-[45rem]">
-          <Card className="flex-1 p-6 lg:p-10">
-            <div className="flex flex-col">
-              <div className="flex flex-col items-center lg:items-end  gap-[11px] mb-6">
+        <div className="flex flex-col lg:flex-row gap-[30px]">
+          {/* Receipt Information Card */}
+          <Card className="w-full lg:w-[45rem] mx-auto">
+            <div className="flex flex-col p-4 lg:p-10">
+              <div className="flex flex-col items-center lg:items-end gap-[11px] mb-6">
                 <h2 className="text-[24px] leading-[27px] font-semibold text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
                   מידע וקבלה
                 </h2>
                 <div className="h-[3px] w-[114px] bg-[#00BAFF]" />
               </div>
 
-              <div className="bg-white rounded-xl p-6">
-                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6`}>
+              <div className="bg-white rounded-xl">
+                <div className="flex flex-col gap-6 p-4">
                   {/* Personal Details */}
-                  <div className={`space-y-2 ${!isMobile ? ' border-r-2 border-[#b0b1b1] pr-14 h-[150px]' : null}`}>
+                  <div className={`space-y-2 ${!isMobile ? 'border-r-2 border-[#b0b1b1] pr-14' : ''}`}>
                     <h3 className="font-semibold text-right">:פרטים אישיים</h3>
                     <div className="text-[#666666] text-right space-y-1">
                       <p>{user.userInfo.firstName} {user.userInfo.lastName}</p>
