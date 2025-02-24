@@ -3,6 +3,7 @@ import React from 'react';
 import PriceBadge from '../../PriceBadge';
 import Carousel from './Carousel';
 import { useNavigate } from 'react-router-dom';
+import { useMobile } from '../../../hooks/use-mobile';
 import './Hero.css';
 
 const Hero: React.FC = () => {
@@ -11,12 +12,13 @@ const Hero: React.FC = () => {
   const handlePackagesClick = () => {
     navigate('/packages');
   };
+  const isMobile = useMobile();
 
   return (
     <section 
-      className="relative w-full overflow-hidden bg-white"
+      className="relative w-full overflow-hidden bg-[#f4f5f5]"
       style={{ overflowX: 'hidden' }}
-      dir="rtl"
+      dir={isMobile ? 'ltr' : 'rtl'}
     >
       <div className="relative">
         {/* Background Image - Hidden on Mobile */}
@@ -33,47 +35,16 @@ const Hero: React.FC = () => {
         />
 
         <div className="container mx-auto px-4 pt-16 pb-24 relative z-10">
-          <div className="flex flex-wrap-reverse lg:flex-wrap items-center justify-between">
-            {/* Right Section */}
-            <div className="w-full lg:w-[calc(50%-200px)] mb-12 lg:mb-0 text-right order-2 lg:order-1">
-              <span className="text-xl md:text-2xl text-[#05172C]" style={{ fontFamily: 'Ploni ML v2 AAA' }}>
-                חוסכים מאות שקלים
-              </span>
-              <h1 
-                className="text-3xl md:text-5xl leading-tight mt-6 mb-6 md:mt-8 md:mb-8 text-[#05172C]" 
-                style={{ fontFamily: 'Ploni ML v2 AAA' }}
-              >
-                בכל קנייה!
-              </h1>
-              <p className="text-lg md:text-2xl text-[#264653] mb-6 md:mb-8">
-                הצטרפו למהפכת הקניות של סמארט-בסקט והוסיפו כסף מכל קניה שלכם!
-              </p>
-              <div className="flex flex-col md:flex-row gap-3 md:gap-5 justify-start">
-                <button 
-                  className="px-8 py-3 bg-[#00BAFF] text-white rounded-full font-semibold"
-                  style={{ fontFamily: 'Ploni ML v2 AAA' }}
-                >
-                  למבצעים
-                </button>
-                <button 
-                  className="px-8 py-3 border border-[#05172C] text-[#05172C] rounded-full"
-                  style={{ fontFamily: 'Ploni ML v2 AAA' }}
-                  onClick = {() => navigate('/shop')}
-                >
-                  לכל המוצרים
-                </button>
-              </div>
-            </div>
-            
-            {/* Left Section */}
-            <div className="w-full lg:w-[calc(50%+200px)] relative order-1 lg:order-2">
-              <div className="relative w-full lg:-translate-x-[10rem] lg:-translate-y-[3.125rem]">
+          <div className="flex flex-wrap md:flex-wrap-reverse lg:flex-wrap items-center justify-between">
+            {/* Left Section - Image */}
+            <div className="w-1/2 md:w-full lg:w-[calc(50%+200px)] relative order-1 lg:order-2 -ml-32 md:ml-0">
+              <div className="relative w-[200%] md:w-full lg:-translate-x-[10rem] lg:-translate-y-[3.125rem]">
                 <img
                   src="https://pub-e320cbb58ef047df8774a8d4068ef39f.r2.dev/homepage-hero.png"
                   alt="מצרכים טריים"
-                  className="w-[90%] h-auto max-h-[35rem] object-contain rounded-3xl"
+                  className="w-full md:w-[90%] h-auto max-h-[35rem] object-contain rounded-3xl"
                 />
-                <div className="absolute -bottom-10 lg:-bottom-20 left-1/2 lg:left-[10rem] transform -translate-x-1/2 lg:-translate-x-8 z-20 scale-[0.65] lg:scale-80"> {/* Reduced scale */}
+                <div className="absolute -bottom-10 lg:-bottom-20 left-1/2 lg:left-[10rem] transform -translate-x-1/2 lg:-translate-x-8 z-20 scale-[0.65] lg:scale-80">
                   <PriceBadge
                     title="שמן קנולה"
                     price={6.90}
@@ -82,12 +53,42 @@ const Hero: React.FC = () => {
                 </div>
               </div>
             </div>
+
+            {/* Right Section - Text Content */}
+            <div className="w-1/2 md:w-full lg:w-[calc(50%-200px)] mb-12 lg:mb-0 text-right order-2 lg:order-1">
+              <span className="text-base md:text-2xl text-[#05172C]" style={{ fontFamily: 'Ploni ML v2 AAA' }}>
+                חוסכים מאות שקלים
+              </span>
+              <h1 
+                className="text-2xl md:text-5xl leading-tight mt-4 md:mt-8 mb-4 md:mb-8 text-[#05172C]" 
+                style={{ fontFamily: 'Ploni ML v2 AAA' }}
+              >
+                בכל קנייה!
+              </h1>
+              <p className="text-sm md:text-2xl text-[#264653] mb-4 md:mb-8">
+                הצטרפו למהפכת הקניות של סמארט-בסקט והוסיפו כסף מכל קניה שלכם!
+              </p>
+              <div className="flex flex-col md:flex-row gap-3 md:gap-5 justify-start">
+                <button 
+                  className="w-full md:w-auto px-6 md:px-8 py-2 md:py-3 bg-[#00BAFF] text-white rounded-full text-sm md:text-base font-semibold"
+                  style={{ fontFamily: 'Ploni ML v2 AAA' }}
+                >
+                  למבצעים
+                </button>
+                <button 
+                  className="w-full md:w-auto px-6 md:px-8 py-2 md:py-3 border border-[#05172C] text-[#05172C] rounded-full text-sm md:text-base"
+                  style={{ fontFamily: 'Ploni ML v2 AAA' }}
+                  onClick={() => navigate('/shop')}
+                >
+                  לכל המוצרים
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Popular Packages Title - Now properly positioned for mobile */}
           <div className="relative z-10 mt-32 md:mt-[-130px]">
-            {/* Title Container with white background on mobile */}
-            <div className="bg-white md:bg-transparent py-8 md:py-0 -mx-4 md:mx-0">
+            <div className=" md:bg-transparent py-8 md:py-0 -mx-4 md:mx-0">
               <h2 
                 className="text-3xl md:text-4xl font-semibold text-[#05172C] mb-8 md:mb-10 text-center"
                 style={{ fontFamily: 'Ploni ML v2 AAA' }}
@@ -96,8 +97,7 @@ const Hero: React.FC = () => {
               </h2>
             </div>
 
-            {/* Carousel Section */}
-            <div className="mt-0 md:mt-[-20px] relative z-10 max-w-[1000px] mx-auto scale-[0.85]"> {/* Reduced max-width and scale */}
+            <div className="mt-0 md:mt-[-20px] relative z-10 max-w-[1000px] mx-auto scale-[0.85]">
               <Carousel />
               <div className="flex justify-center mt-12 md:mt-20">
                 <button

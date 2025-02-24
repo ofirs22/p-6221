@@ -18,6 +18,7 @@ export const ProductSelectionDialog: React.FC<ProductSelectionDialogProps> = ({
   onProductsSelected,
 }) => {
   const products = useSelector(selectProducts);
+  console.log(products)
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedProducts, setSelectedProducts] = useState<{ productId: string; quantity: number }[]>([]);
 

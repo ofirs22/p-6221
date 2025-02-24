@@ -1,9 +1,10 @@
+
 import React from 'react';
 
 interface OrderStatusButtonProps {
   status: string;
   isActive: boolean;
-  complete:boolean;
+  complete: boolean;
 }
 
 export const OrderStatusButton: React.FC<OrderStatusButtonProps> = ({ status, isActive, complete }) => {
@@ -12,9 +13,8 @@ export const OrderStatusButton: React.FC<OrderStatusButtonProps> = ({ status, is
   const pendingClasses = "text-zinc-900 bg-zinc-100";
   const completedClasses = "text-white bg-[#7EB23D]";
 
-  
-    return (
-        <div className="relative flex items-center">
+  return (
+    <div className="relative flex items-center">
       {/* Status Button */}
       <button
         className={`${baseClasses} ${isActive ? activeClasses : complete ? completedClasses : pendingClasses}`}
@@ -23,12 +23,10 @@ export const OrderStatusButton: React.FC<OrderStatusButtonProps> = ({ status, is
         {status}
       </button>
 
-      {/* Connector extending to the right if completed */}
-      {complete  && (
-        <div className="absolute right-full top-1/2 transform -translate-y-1/2 w-1/3 h-2 bg-[#7EB23D]"></div>
+      {/* Connector extending to the left if completed - Only visible on desktop */}
+      {complete && (
+        <div className="absolute right-full top-1/2 transform -translate-y-1/2 w-1/3 h-2 bg-[#7EB23D] hidden md:block"></div>
       )}
     </div>
-  )
-
+  );
 };
-

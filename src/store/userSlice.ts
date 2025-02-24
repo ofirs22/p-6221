@@ -4,7 +4,7 @@ import { UserState, BillingDetails } from '../types/userTypes';
 import userService, { LoginCredentials, RegisterData } from '../services/userService';
 
 const initialState: UserState = {
-  isAuthenticated: false,
+  isAuthenticated: true,
   loading: false,
   error: null,
   userInfo: {

@@ -2,10 +2,13 @@ import React from 'react';
 import ProductFeatures from './ProductFeatures';
 import ProductGrid from './ProductGrid';
 import HotOffer from './HotOffer';
+import { useSelector } from 'react-redux';
+import { selectSaleProducts } from '../../../store/productSlice';
 
 const WeekSpecial: React.FC = () => {
+  const products = useSelector(selectSaleProducts);
   return (
-    <section className="py-10">
+    <section className="py-10 ">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="max-w-[535px] mb-10 text-center mx-auto">
@@ -29,7 +32,7 @@ const WeekSpecial: React.FC = () => {
         {/* Products Grid and Hot Offer */}
         <div className="flex gap-8 mt-8 flex-col-reverse lg:flex-row justify-center">
           <HotOffer />
-          <ProductGrid />
+          <ProductGrid products={products} rows={2} />
         </div>
       </div>
     </section>

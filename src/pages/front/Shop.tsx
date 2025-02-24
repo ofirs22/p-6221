@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CatalogHeader } from '../../components/front/shop/CatalogHeader';
 import { CatalogFilters } from '../../components/front/shop/CatalogFilters';
-import { ProductGrid } from '../../components/front/shop/ProductGrid';
+import  {ProductGrid}  from '../../components/front/shop/ProductGrid';
 import { WeeklyOffer } from '../../components/front/shop/WeeklyOffer';
 import { QuickOrder } from '../../components/front/shop/QuickOrder';
 import { MeatDepartmentBanner } from '../../components/front/shop/MeatDepartmentBanner';
@@ -27,20 +27,19 @@ const Catalog: React.FC = () => {
         <div className="container mx-auto px-4 py-8 flex-grow">
           {isMobile ? (
             <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  className="w-full mb-4 bg-[#00BAFF] text-white flex items-center justify-center gap-2"
-                >
-                  {showFilters ? 'הסתר מסננים' : 'הצג מסננים'}
-                  {showFilters ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-                </Button>
-              </SheetTrigger>
-              <SheetContent 
-                side="top" 
-                className="w-full h-[80vh] overflow-y-auto" 
-                title={'פילטר'}
-                description='סנן את המוצרים לפי הצרכים שלך'
+            <SheetTrigger asChild>
+              <Button
+                className="w-full mb-4 bg-[#00BAFF] text-white flex items-center justify-center gap-2"
               >
+                {showFilters ? 'הסתר מסננים' : 'הצג מסננים'}
+                {showFilters ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+              </Button>
+            </SheetTrigger>
+            <SheetContent 
+              side="top" 
+              className="w-full h-[80vh] overflow-y-auto" 
+              title={'פילטר'}
+            >
                 <div className="pt-8">
                   <CatalogFilters onSubmit={handleFilterSubmit} />
                 </div>

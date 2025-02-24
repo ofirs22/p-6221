@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -7,10 +8,8 @@ import { Card } from '../../ui/card';
 import { CartContent } from '../cart/CartContent';
 import { DeliveryNTotal } from './DeliveryNTotal';
 
-
 export const PaymentForm: React.FC = () => {
   const cart = useSelector((state: RootState) => state.cart);
-  console.log(cart, "cart");
   const navigate = useNavigate();
   const onBack = () => {
     console.log("onBack");
@@ -30,10 +29,33 @@ export const PaymentForm: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row gap-[30px]">
+      <div className="flex flex-col-reverse lg:flex-row gap-[30px]">
+        {/* Order Summary - Will be on top in mobile view */}
+        <Card className="flex-1 p-10 max-md:p-5 order-2 lg:order-2">
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-[11px]">
+              <h2 
+                className="text-[24px] leading-[27px] font-semibold text-[#05172C]"
+                style={{ fontFamily: 'Ploni DL 1.1 AAA' }}
+              >
+                סיכום הזמנה
+              </h2>
+              <div className="h-[3px] w-[119px] bg-[#00BAFF] ml-auto" />
+            </div>
+            <div className="h-[1px] w-full bg-[#D2D2D2]" />
+            <div className="flex flex-col gap-4">
+              <CartContent />
+              {/* Order Details */}
+              <div className="p-5 bg-white shadow-md rounded-lg max-md:p-3">
+                <DeliveryNTotal totalPrice={cart.totalPrice} />
+              </div>
+            </div>
+          </div>
+        </Card>
+
         {/* Left Column - Payment Methods */}
-        <div className="flex flex-col gap-[30px] w-full lg:w-[547px]">
-          <Card className="p-10">
+        <div className="flex flex-col gap-[30px] w-full lg:w-[547px] order-1 lg:order-1">
+          <Card className="p-10 max-md:p-5">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-[11px]">
                 <h2 
@@ -123,48 +145,26 @@ export const PaymentForm: React.FC = () => {
                 </div>
               </div>
             </div>
-          {/* Navigation Buttons */}
-          <div className="flex gap-4 mt-8">
-            <button
-              onClick={onBack}
-              className="flex-1 h-[52px] border border-[#00BAFF] text-[#00BAFF] rounded-full font-semibold text-[20px] leading-[29px]"
-              style={{ fontFamily: 'Ploni ML v2 AAA' }}
-            >
-              חזרה
-            </button>
-            <button
-              onClick={onNext}
-              className="flex-1 h-[52px] bg-[#00BAFF] text-white rounded-full font-semibold text-[20px] leading-[29px]"
-              style={{ fontFamily: 'Ploni ML v2 AAA' }}
-            >
-              המשך
-            </button>
-          </div>
-          </Card>
 
-
-        </div>
-
-        {/* Right Column - Order Summary */}
-        <Card className="flex-1 p-10">
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-[11px]">
-              <h2 
-                className="text-[24px] leading-[27px] font-semibold text-[#05172C]"
-                style={{ fontFamily: 'Ploni DL 1.1 AAA' }}
+            {/* Navigation Buttons */}
+            <div className="flex gap-4 mt-8">
+              <button
+                onClick={onBack}
+                className="flex-1 h-[52px] border border-[#00BAFF] text-[#00BAFF] rounded-full font-semibold text-[20px] leading-[29px]"
+                style={{ fontFamily: 'Ploni ML v2 AAA' }}
               >
-                סיכום הזמנה
-              </h2>
-              <div className="h-[3px] w-[119px] bg-[#00BAFF] ml-auto" />
+                חזרה
+              </button>
+              <button
+                onClick={onNext}
+                className="flex-1 h-[52px] bg-[#00BAFF] text-white rounded-full font-semibold text-[20px] leading-[29px]"
+                style={{ fontFamily: 'Ploni ML v2 AAA' }}
+              >
+                המשך
+              </button>
             </div>
-            {/* <div className="h-[1px] w-full bg-[#D2D2D2]" /> */}
-            <CartContent />
-            {/* Order Details */}
-            <div className="p-5 bg-white shadow-md rounded-lg">
-              <DeliveryNTotal totalPrice={cart.totalPrice} />
-            </div>
-          </div>
-        </Card>
+          </Card>
+        </div>
       </div>
     </div>
   );

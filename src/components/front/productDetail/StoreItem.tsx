@@ -109,6 +109,13 @@ const StoreItem: React.FC<StoreItemProps> = ({
         </div>
         <div className="flex shrink-0 mt-9 h-px bg-neutral-300 max-md:max-w-full" />
         <div className="mt-9 ml-3.5 text-base leading-6 text-right text-slate-700 max-md:max-w-full">{description}</div>
+
+
+
+
+
+
+
       </div>
     </div>
   );

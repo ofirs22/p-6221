@@ -48,7 +48,7 @@ const MainComponent: React.FC = () => {
           <div className="flex shrink-0 bg-sky-500 h-[3px]" />
         </div>
         <div className="flex flex-col md:flex-row mt-4 mb">
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/2 text-center">
             <ProductDescription description={product?.productDetails} />
             <ProductBottomDetails categories={product?.categories} tags={product?.tags} sku={product?.sku} />
           </div>

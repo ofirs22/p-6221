@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { Tag, TagState } from '../types/tagTypes';
 import { mockTags } from '../data/mockTags';
+import { RootState } from './index';
 
 const initialState: TagState = {
   tags: mockTags,
@@ -38,5 +39,8 @@ const tagSlice = createSlice({
 });
 
 export const selectTags = (state: { tags: TagState }) => state.tags.tags;
-
+export const selectTagNamesById = (state: RootState, tagIds: string[]) => {
+  const tagMap = new Map(state.tags.tags.map((tag) => [tag.id, tag.name]));
+      return tagIds.map((id) => tagMap.get(id) || "Unknown");
+}
 export default tagSlice.reducer;

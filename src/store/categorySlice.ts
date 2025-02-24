@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { Category, CategoryState } from '../types/categoryTypes';
 import { mockCategories } from '../data/mockCategories';
+import { RootState } from './index';
 
 const initialState: CategoryState = {
   categories: mockCategories,
@@ -38,5 +39,8 @@ const categorySlice = createSlice({
 });
 
 export const selectCategories = (state: { categories: CategoryState }) => state.categories.categories;
-
+export const selectCategoryNamesById = (categoryIds: string[]) => (state: RootState) => {
+  const categoryMap = new Map(state.categories.categories.map((category) => [category.id, category.name]));
+  return categoryIds.map((id) => categoryMap.get(id) || "Unknown");
+};
 export default categorySlice.reducer;
