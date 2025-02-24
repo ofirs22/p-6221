@@ -33,14 +33,14 @@ export const PaymentForm: React.FC = () => {
         {/* Order Summary - Will be on top in mobile view */}
         <Card className="flex-1 p-10 max-md:p-5 order-2 lg:order-2">
           <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-[11px]">
+            <div className="flex flex-col gap-[11px] text-center lg:text-end">
               <h2 
                 className="text-[24px] leading-[27px] font-semibold text-[#05172C]"
                 style={{ fontFamily: 'Ploni DL 1.1 AAA' }}
               >
                 סיכום הזמנה
               </h2>
-              <div className="h-[3px] w-[119px] bg-[#00BAFF] ml-auto" />
+              <div className="h-[3px] w-[119px] bg-[#00BAFF] mx-auto lg:ml-auto lg:mr-0" />
             </div>
             <div className="h-[1px] w-full bg-[#D2D2D2]" />
             <div className="flex flex-col gap-4">

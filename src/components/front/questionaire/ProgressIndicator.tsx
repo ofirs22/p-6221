@@ -30,8 +30,8 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSte
           <div
             key={index}
             className={`relative w-10 h-10 rounded-full flex items-center justify-center text-[22px] font-bold transition-all duration-300 ${
-              isActive ? 'bg-[#00BAFF] text-white' :
-              isPast ? 'bg-[#00BAFF] text-white' :
+              isActive ? 'bg-[#087094] text-white' :
+              isPast ? 'bg-[#087094] text-white' :
               'bg-[#F4F5F5] text-[#778080]'
             } ${
               isPast ? 'shadow-md' : ''

@@ -10,6 +10,7 @@ import { clearCart } from '../../../store/cartSlice';
 import { Order, OrderStatus } from '../../../types/orderTypes';
 import { setSavingsAmount } from '../../../store/userSlice';
 import { selectUserDetails } from '../../../store/userSlice';
+import { useMobile } from '../../../hooks/use-mobile';
 
 const OrderConfirmation: React.FC = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const OrderConfirmation: React.FC = () => {
   const user = useSelector(selectUserDetails);
   const cart = useSelector((state: RootState) => state.cart);
   const totalAmount = useSelector(selectCartTotal);
-
+  const isMobile = useMobile();
   const onFinish = () => {
     // Create new order
     const newOrder: Order = {
@@ -76,10 +77,10 @@ const OrderConfirmation: React.FC = () => {
         </Card>
 
         {/* Information and Receipt Section */}
-        <div className="flex flex-col lg:flex-row gap-[30px]">
+        <div className="flex flex-col lg:flex-row gap-[30px] bg-white rounded-lg mb-10 shadow-xl mx-auto w-[45rem]">
           <Card className="flex-1 p-6 lg:p-10">
             <div className="flex flex-col">
-              <div className="flex flex-col items-end gap-[11px] mb-6">
+              <div className="flex flex-col items-center lg:items-end  gap-[11px] mb-6">
                 <h2 className="text-[24px] leading-[27px] font-semibold text-[#05172C]" style={{ fontFamily: 'Ploni DL 1.1 AAA' }}>
                   מידע וקבלה
                 </h2>
@@ -87,9 +88,9 @@ const OrderConfirmation: React.FC = () => {
               </div>
 
               <div className="bg-white rounded-xl p-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6`}>
                   {/* Personal Details */}
-                  <div className="space-y-2">
+                  <div className={`space-y-2 ${!isMobile ? ' border-r-2 border-[#b0b1b1] pr-14 h-[150px]' : null}`}>
                     <h3 className="font-semibold text-right">:פרטים אישיים</h3>
                     <div className="text-[#666666] text-right space-y-1">
                       <p>{user.userInfo.firstName} {user.userInfo.lastName}</p>

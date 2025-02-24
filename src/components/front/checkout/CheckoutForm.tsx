@@ -42,11 +42,11 @@ export const CheckoutForm: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row gap-[30px]">
+      <div className="flex flex-col-reverse lg:flex-row gap-[30px]">
         {/* Left Column */}
         <div className="flex flex-col gap-[30px] w-full lg:w-[365px]">
           {/* Delivery Method Card */}
-          <Card className="p-10">
+          <Card className="p-5">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-[11px]">
                 <h2 
@@ -75,11 +75,11 @@ export const CheckoutForm: React.FC = () => {
         </div>
 
         {/* Right Column - Form */}
-        <Card className="flex-1 p-10">
+        <Card className="flex-1 p-5">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-[11px]">
               <h2 
-                className="text-[24px] leading-[27px] font-semibold text-[#05172C]"
+                className="text-[24px] leading-[27px] font-semibold text-[#05172C] "
                 style={{ fontFamily: 'Ploni DL 1.1 AAA' }}
               >
                 פרטי משלוח
@@ -91,7 +91,7 @@ export const CheckoutForm: React.FC = () => {
             <div className="p-5 bg-white shadow-md rounded-lg">
               <form className="flex flex-col gap-4">
                 {/* First Line */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Select
                   name="phoneAreaCode"
                   defaultValue={areaCode}
@@ -143,7 +143,7 @@ export const CheckoutForm: React.FC = () => {
                 </div>
 
                 {/* Second Line */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <input
                     type="text"
                     name="postalCode"
@@ -199,22 +199,23 @@ export const CheckoutForm: React.FC = () => {
                   </Select>
                 </div>
 
-                {/* Continue Button */}
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onNext();
-                  }}
-                  className="w-full h-[52px] bg-[#00BAFF] ml-auto text-white rounded-full font-semibold text-[20px] leading-[29px] mt-4"
-                  style={{ fontFamily: 'Ploni ML v2 AAA' }}
-                >
-                  המשך לתשלום
-                </button>
+                
               </form>
             </div>
           </div>
         </Card>
       </div>
+      {/* Continue Button */}
+      <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNext();
+                  }}
+                  className="w-[90%] h-[52px] bg-[#00BAFF] mx-auto mb-5 text-white rounded-full font-semibold text-[20px] leading-[29px] mt-4"
+                  style={{ fontFamily: 'Ploni ML v2 AAA' }}
+                >
+                  המשך לתשלום
+                </button>
     </div>
   );
 };
