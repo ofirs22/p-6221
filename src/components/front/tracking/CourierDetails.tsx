@@ -68,7 +68,7 @@ const CourierDetails: React.FC = () => {
         courierDetails.shipment.orderNumber,
         [
           { label: "שם", value: courierDetails.shipment.name },
-          { label: "כתובת ודירה", value: courierDetails.shipment.address }
+          { label: "כתובת ודירה", value: courierDetails.shipment.street }
         ],
         <Pencil className="w-4 h-4 text-[#05172C]" />
       )}
